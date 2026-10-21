@@ -8,24 +8,16 @@ import { hasHebrew, lintText, RLM } from './he.mjs';
 import { hookIssues, maatpaIssues, noveltyConflicts } from './stages.mjs';
 import { productGate } from './launch.mjs';
 import { buildAll } from './build.mjs';
+import { beatTexts, claimHits, distributionTexts, giveawayOffenders, impliesRequest } from './scan.mjs';
 
-const TRIGGERS = [
-  { type: 'built', re: /(בניתי|בנינו|הקמתי|פיתחתי|פיתחנו|בנוי|השקתי|השקנו|פרסתי)/u },
-  { type: 'time_saved', re: /(חסכ(תי|נו|ה|ו|ים)|חסך|חוסך|חוסכת|חוסכים|חיסכון|(\d+|כמה|הרבה|שעתיים|שלוש|ארבע|חמש|שש|שבע|שמונה|תשע|עשר|עשרה|עשרים)\s+(שעות|דקות|ימי עבודה|ימים)|שעות\s+(עבודה|של))/u },
-  { type: 'roi', re: /(ROI|החזר השקעה|הרווחנו|הרווחתי|הכנסות|עלייה של|ירידה של|\d+\s*%|\d+\s*אחוז|פי\s+(\d+|שניים|שלושה|ארבעה|עשרה)|₪\s*\d|\d\s*₪)/u },
-  { type: 'social_proof', re: /((אלפי|מאות|עשרות)\s+(לקוחות|משתמשים|עסקים|בעלי עסקים))|לקוחות מרוצים|הכי טוב בישראל|מספר\s*1/u },
-  { type: 'quote', re: /(אמר לי|אמרה לי|כתב לי|כתבה לי|"[^"]{8,}")/u },
-  { type: 'customer', re: /(הלקוח שלי|הלקוחה שלי|הלקוחות שלי|אחד הלקוחות)/u },
-];
 const STRICT = new Set(['roi', 'time_saved', 'social_proof', 'customer', 'quote']);
-const REQUEST_WORDS = /(ביקשתם|ביקשת|ביקשו|פנו אליי|פנית אליי|קיבלתי הודעה|כתבתם לי|שאלתם אותי)/u;
-const GIVEAWAY_WORDS = /(בחינם|חינם|להוריד|הורדה|קוד פתוח|גיטהאב|github|קישור|בספרייה|מתנה|הקוד)/iu;
-const SOFTENER = /(עדיין|בקרוב|כשזה|אחרי שזה|אחרי שאני|לא\s|אין\s)/u;
+const AGENT_NAMES = /^(agent|claude|codex|openclaw|ai|assistant|bot|gpt|llm|model|system)\b/i;
+const OWN_FILES = new Set(['input.json', 'idea.json', 'hooks.json', 'maatpa.json', 'script.json', 'distribution.json', 'product.json', 'approvals.json']);
 const SECRETS = [
   /sk-[A-Za-z0-9_-]{20,}/, /AKIA[0-9A-Z]{16}/, /gh[pousr]_[A-Za-z0-9]{30,}/, /xox[baprs]-[A-Za-z0-9-]{10,}/, /AIza[0-9A-Za-z_-]{35}/,
   /-----BEGIN [A-Z ]*PRIVATE KEY-----/, /(api[_-]?key|secret|token|password|סיסמה)\s*[:=]\s*["']?[A-Za-z0-9_\-]{16,}/i,
 ];
-const PHONE = /(?:\+972[-\s]?|0)5\d[-\s]?\d{3}[-\s]?\d{4}/;
+const PHONE = /(?<![0-9A-Za-z])(?:\+972[-\s]?|0)5\d[-\s]?\d{3}[-\s]?\d{4}(?![0-9A-Za-z])/;
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
 
 export function loadRequests(ws) {
@@ -94,6 +86,7 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
     let st = 'PASS';
     if (t.total_s < cfg.format.hard_min_s || t.total_s > cfg.format.hard_max_s) { st = 'FAIL'; d.push(`outside hard range ${cfg.format.hard_min_s}-${cfg.format.hard_max_s}s`); }
     else if (!t.in_target_range) { st = 'WARN'; d.push(`outside target ${cfg.format.target_min_s}-${cfg.format.target_max_s}s`); }
+    if (t.calibration_stale) { if (st === 'PASS') st = 'WARN'; d.push('calibration is stale: the VO word count changed since the recording was measured. Re-record or re-run `systm script --calibrate-seconds`'); }
     if (t.wps_source === 'config_estimate') { if (st === 'PASS') st = 'WARN'; d.push('duration is an estimate until the real VO is recorded: run `systm script ' + id + ' --calibrate-seconds <vo seconds>`'); }
     add('V03', 'Timing', 4, st, d);
   }
@@ -168,9 +161,11 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
       }
     } else fail('captions.he.srt missing');
     for (const b of script.beats) {
-      const n = wordCount(b.on_screen_text);
-      if (n > cfg.overlays.max_words * 2) fail(`beat ${b.n} overlay has ${n} words`);
-      else if (n > cfg.overlays.max_words) warn(`beat ${b.n} overlay has ${n} words (max ${cfg.overlays.max_words} for a phone headline)`);
+      for (const o of beatTexts(b).filter((x) => x.kind === 'overlay')) {
+        const n = wordCount(o.text);
+        if (n > cfg.overlays.max_words * 2) fail(`${o.where} has ${n} words`);
+        else if (n > cfg.overlays.max_words) warn(`${o.where} has ${n} words (max ${cfg.overlays.max_words} for a phone headline)`);
+      }
     }
     const f = cfg.format;
     if (f.width !== 1080 || f.height !== 1920 || f.fps !== 30) warn(`format is ${f.width}x${f.height}@${f.fps}, the show format is 1080x1920@30`);
@@ -184,14 +179,9 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
   {
     const found = [];
     const scan = (where, text, opt) => { for (const f of lintText(text, opt)) found.push({ where, ...f }); };
-    for (const b of script?.beats ?? []) { scan(`beat ${b.n} vo`, b.vo, { hook: b.n === 1 }); scan(`beat ${b.n} overlay`, b.on_screen_text); }
+    for (const b of script?.beats ?? []) for (const t of beatTexts(b)) scan(t.where, t.text, { hook: b.n === 1 && t.kind === 'vo' });
     for (const h of c.hooks?.hooks ?? []) if (h.id === c.hooks.selected) scan(`hook ${h.id}`, h.text, { hook: true });
-    const d = c.distribution;
-    if (d) {
-      scan('instagram caption', d.platforms.instagram.caption); scan('instagram story', d.platforms.instagram.story_teaser);
-      scan('tiktok caption', d.platforms.tiktok.caption); scan('shorts title', d.platforms.shorts.title); scan('shorts description', d.platforms.shorts.description);
-      scan('linkedin caption', d.platforms.linkedin.caption); scan('thumbnail text', d.thumbnail_text);
-    }
+    if (c.distribution) for (const t of distributionTexts(c.distribution)) scan(t.where, t.text);
     const errs = found.filter((f) => f.severity === 'error');
     add('V08', 'Hebrew voice lint (no AI-sounding copy)', 5, errs.length ? 'FAIL' : found.length ? 'WARN' : 'PASS', found.map((f) => `${f.severity.toUpperCase()} ${f.where}: ${f.code} "${f.match}"`));
   }
@@ -206,18 +196,35 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
     const diag = input.status === 'DIAGNOSIS';
     for (const e of input.evidence ?? []) {
       if (e.state === 'planned') continue;
-      if (!e.ref?.trim()) fail(`${e.id} is ${e.state} but has no ref (file or URL)`);
-      else if (!/^https?:\/\//.test(e.ref) && !exists(path.resolve(p.dir, e.ref))) fail(`${e.id} is ${e.state} but ${e.ref} does not exist (paths are relative to the episode folder)`);
-      if (e.state === 'verified' && !e.verified_by?.trim()) fail(`${e.id} is verified but has no verified_by`);
+      if (!e.ref?.trim()) { fail(`${e.id} is ${e.state} but has no ref (file or URL)`); continue; }
+      if (!/^https?:\/\//.test(e.ref)) {
+        const abs = path.resolve(p.dir, e.ref);
+        const inside = abs.startsWith(ws.dir + path.sep);
+        const own = path.dirname(abs) === p.dir && OWN_FILES.has(path.basename(abs));
+        const derived = ['build', 'verify', 'distribute', 'launch', 'package'].some((x) => abs.startsWith(path.join(p.dir, x) + path.sep));
+        let ok = false;
+        try { const stt = fs.statSync(abs); ok = stt.isFile() && stt.size > 0; } catch { /* missing */ }
+        if (!inside) fail(`${e.id}: ref ${e.ref} points outside the systm/ workspace`);
+        else if (own || derived) fail(`${e.id}: ref ${e.ref} is a pipeline file, not a capture of the real thing`);
+        else if (!ok) fail(`${e.id} is ${e.state} but ${e.ref} is missing, empty or a folder (paths are relative to the episode folder)`);
+      }
+      if (e.state === 'verified' && (!e.verified_by?.trim() || AGENT_NAMES.test(e.verified_by.trim()))) fail(`${e.id} is verified but verified_by is ${e.verified_by?.trim() ? `"${e.verified_by}", which is not a person` : 'empty'}`);
     }
     for (const b of script.beats) {
-      const text = `${b.vo} ${b.on_screen_text}`;
-      for (const t of TRIGGERS) {
-        const m = text.match(t.re);
-        if (m && !claims.some((cl) => cl.beat === b.n && cl.type === t.type)) fail(`beat ${b.n} says "${m[0]}" (${t.type}) with no ${t.type} claim in claims[]`);
+      for (const t of beatTexts(b)) {
+        for (const h of claimHits(t.text)) {
+          if (!claims.some((cl) => cl.beat === b.n && cl.type === h.type)) fail(`${t.where} says "${h.match}" (${h.type}) with no ${h.type} claim for beat ${b.n} in claims[]`);
+        }
       }
       for (const e of b.evidence ?? []) if (!c.ev.has(e)) fail(`beat ${b.n} cites unknown evidence ${e}`);
       if (RESULT_BEATS.includes(b.n) && !diag && !(b.evidence ?? []).length) fail(`beat ${b.n} shows a result and has no evidence ids`);
+    }
+    if (c.distribution) {
+      for (const t of distributionTexts(c.distribution)) {
+        for (const h of claimHits(t.text)) {
+          if (!claims.some((cl) => cl.type === h.type)) fail(`${t.where} says "${h.match}" (${h.type}) and script.json has no ${h.type} claim backing it`);
+        }
+      }
     }
     for (const cl of claims) {
       if (!cl.evidence.length) { fail(`${cl.id} (${cl.type}) has no evidence`); continue; }
@@ -253,8 +260,9 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
     for (const b of script.beats) {
       if ((b.evidence ?? []).some((e) => synth.has(e)) && (!label || !b.on_screen_text.includes(label))) fail(`beat ${b.n} shows synthetic data without the on-screen label${label ? ` "${label}"` : ' (set synthetic_label)'}`);
     }
-    const b7 = script.beats[6];
-    if (input.origin === 'observed_need' && b7 && REQUEST_WORDS.test(`${b7.vo} ${b7.on_screen_text}`)) fail('beat 7 implies someone asked for this, but origin is observed_need');
+    if (input.origin === 'observed_need') {
+      for (const b of script.beats) for (const t of beatTexts(b)) if (impliesRequest(t.text)) fail(`${t.where} implies someone asked for this, but origin is observed_need`);
+    }
     if (input.origin === 'consented_request') {
       const r = c.requests.find((x) => x.id === input.request_ref);
       if (!input.request_ref || !r) { d.push('consented_request needs request_ref pointing at the requests ledger'); if (release) st = 'FAIL'; else if (st === 'PASS') st = 'WARN'; }
@@ -270,13 +278,10 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
     const gate = c.product ? productGate(c.product, input, p.dir) : { verdict: 'BLOCKED', missing: ['product.json missing'], checks: [] };
     const d = [];
     let st = 'PASS';
-    const b13 = script.beats[12];
-    const text13 = `${b13.vo} ${b13.on_screen_text}`;
     if (gate.verdict === 'BLOCKED') {
       if (script.cta.type === 'giveaway') { st = 'FAIL'; d.push('cta.type is giveaway but the release gate is BLOCKED'); }
-      for (const s of text13.split(/(?<=[.!?])\s+/)) {
-        if (GIVEAWAY_WORDS.test(s) && !SOFTENER.test(s)) { st = 'FAIL'; d.push(`beat 13 promises access while the gate is blocked: "${s.trim()}"`); }
-      }
+      const all = [...script.beats.flatMap((b) => beatTexts(b)), ...(c.distribution ? distributionTexts(c.distribution) : [])];
+      for (const t of all) for (const sent of giveawayOffenders(t.text)) { st = 'FAIL'; d.push(`${t.where} promises access while the gate is blocked: "${sent.slice(0, 80)}"`); }
       if (st === 'PASS') d.push(`gate BLOCKED (${gate.missing.length} missing), CTA is honest (${script.cta.type})`);
     } else d.push('gate OPEN');
     if (gate.verdict === 'OPEN' && script.cta.type !== 'giveaway') d.push('gate is open but the CTA is not a giveaway (fine, but a free product is a reason to ask for the next one)');
@@ -298,7 +303,7 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
       if (PHONE.test(text)) { st = 'FAIL'; d.push(`${rel}: contains a phone number`); }
       if (EMAIL.test(text) && st === 'PASS') { st = 'WARN'; d.push(`${rel}: contains an email address, make sure it is a public support address`); }
     }
-    add('V12', 'No secrets or personal data', 8, st, d.length ? d : [`${files.length} files scanned`]);
+    add('V12', 'No secrets or personal data', 8, st, d.length ? d : ["nothing found in the episode files or the requests ledger"]);
   }
 
   // V13 remote writes
@@ -312,6 +317,7 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
       if (exists(p.approvals)) {
         const ap = readJson(p.approvals);
         for (const a of ap.approvals ?? []) {
+          if (AGENT_NAMES.test(String(a.approved_by).trim())) { st = 'FAIL'; d.push(`approval ${a.action} was recorded by "${a.approved_by}", which is not a person`); }
           const item = (plan.items ?? []).find((i) => i.action === a.action);
           if (!item) { if (st === 'PASS') st = 'WARN'; d.push(`approval ${a.action} matches no plan item`); }
           else if (item.content_sha256 !== a.content_sha256) { if (st === 'PASS') st = 'WARN'; d.push(`approval ${a.action} is stale, content changed after approval`); }
@@ -336,8 +342,9 @@ export function runChecks(ws, id, { stage = 'plan' } = {}) {
     const timing = buildAll(p, script, cfg, id).timing;
     for (const x of s.filter((y) => y.type === 'SILENCE')) {
       const r = timing.beats.find((b) => b.n === x.beat);
+      if (!r) continue;
       const speechEnd = r.end_s - r.pause_after_s;
-      if (r && r.start_s + (x.offset_s ?? 0) < speechEnd - 0.05) fail(`beat ${x.beat} SILENCE at ${(r.start_s + (x.offset_s ?? 0)).toFixed(2)}s lands on speech (VO runs to ${speechEnd.toFixed(2)}s): set offset_s >= ${(speechEnd - r.start_s).toFixed(2)}`);
+      if (r.start_s + (x.offset_s ?? 0) < speechEnd - 0.05) fail(`beat ${x.beat} SILENCE at ${(r.start_s + (x.offset_s ?? 0)).toFixed(2)}s lands on speech (VO runs to ${speechEnd.toFixed(2)}s): set offset_s >= ${(speechEnd - r.start_s).toFixed(2)}`);
     }
     for (const x of s.filter((y) => y.asset)) if (!x.license?.trim() || /unknown|none|לא ידוע/i.test(x.license)) fail(`beat ${x.beat} ${x.type} asset "${x.asset}" has no licence recorded`);
     add('V14', 'Sound design rules', 4, st, d);

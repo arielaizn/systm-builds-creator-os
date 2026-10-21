@@ -49,7 +49,7 @@ verdict: **WARN** · PASS 13 · WARN 1 · BLOCKED 0 · FAIL 0
 
 ### V12 · No secrets or personal data · PASS (acceptance 8)
 
-- 19 files scanned
+- nothing found in the episode files or the requests ledger
 
 ### V13 · No remote write without approval · PASS (acceptance 9)
 

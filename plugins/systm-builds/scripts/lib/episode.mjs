@@ -42,6 +42,7 @@ export function epPaths(ws, id) {
     product: f('product.json'), gate: f('launch', 'gate.json'),
     approvals: f('approvals.json'),
     analysis: f('analytics', 'analysis.json'), analysisMd: f('analytics', 'analysis.md'),
+    media: f('qa', 'media.json'),
   };
 }
 

@@ -20,6 +20,8 @@ global      --root <dir> (workspace parent, default cwd or $SYSTM_ROOT) | --json
 exit codes  0 ok/warn · 1 FAIL · 2 BLOCKED · 3 refused (needs a human)
 `;
 
+const BOOLEAN = new Set(['json', 'force', 'zip', 'synthetic', 'plugin', 'run-tests', 'check-urls', 'help']);
+
 function parse(argv) {
   const opts = { _: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -27,7 +29,8 @@ function parse(argv) {
     if (a.startsWith('--')) {
       const k = a.slice(2);
       const next = argv[i + 1];
-      if (next === undefined || next.startsWith('--')) opts[k] = true;
+      if (BOOLEAN.has(k)) opts[k] = true;
+      else if (next === undefined || next.startsWith('--')) throw new CliError(`--${k} needs a value`);
       else { opts[k] = next; i++; }
     } else opts._.push(a);
   }

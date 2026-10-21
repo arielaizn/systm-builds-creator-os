@@ -20,14 +20,20 @@ export function analyze(csvText, { episode = null, synthetic = false } = {}) {
   const raw = parseCsv(csvText);
   const issues = [];
   let rows = raw.map((r, i) => ({ line: i + 2, date: r.date, platform: (r.platform ?? 'all').toLowerCase(), episode_id: r.episode_id, ...Object.fromEntries(FUNNEL.map((k) => [k, num(r[k])])), avg_view_duration_s: num(r.avg_view_duration_s) }));
-  for (const r of rows) {
-    for (const k of FUNNEL) if (r[k] === null || Number.isNaN(r[k]) || r[k] < 0) issues.push(`line ${r.line}: ${k} is missing or negative`);
-    if (r.visits > r.views) issues.push(`line ${r.line}: visits (${r.visits}) exceed views (${r.views}), check the export`);
-    if (r.activations > r.visits) issues.push(`line ${r.line}: activations (${r.activations}) exceed visits (${r.visits})`);
-    if (r.consultations > r.activations) issues.push(`line ${r.line}: qualified consultations exceed activations`);
-  }
+  // Judge only the rows that belong to this episode; another episode's bad export must not fail this one.
   if (episode) rows = rows.filter((r) => !r.episode_id || r.episode_id === episode);
-  const clean = rows.filter((r) => FUNNEL.every((k) => Number.isFinite(r[k])));
+  const seen = new Set();
+  const bad = new Set();
+  for (const r of rows) {
+    const key = [r.date, r.platform, r.episode_id, ...FUNNEL.map((k) => r[k])].join('|');
+    if (seen.has(key)) { issues.push(`line ${r.line}: exact duplicate of an earlier row (skipped)`); bad.add(r); continue; }
+    seen.add(key);
+    for (const k of FUNNEL) if (r[k] === null || Number.isNaN(r[k]) || r[k] < 0) { issues.push(`line ${r.line}: ${k} is missing or negative`); bad.add(r); }
+    if (r.visits > r.views) { issues.push(`line ${r.line}: visits (${r.visits}) exceed views (${r.views}), check the export`); bad.add(r); }
+    if (r.activations > r.visits) { issues.push(`line ${r.line}: activations (${r.activations}) exceed visits (${r.visits})`); bad.add(r); }
+    if (r.consultations > r.activations) { issues.push(`line ${r.line}: qualified consultations exceed activations`); bad.add(r); }
+  }
+  const clean = rows.filter((r) => !bad.has(r) && FUNNEL.every((k) => Number.isFinite(r[k])));
   const group = (key) => {
     const m = new Map();
     for (const r of clean) {
@@ -56,7 +62,7 @@ export function analyze(csvText, { episode = null, synthetic = false } = {}) {
   ];
   if (total.confidence !== 'usable') notes.push(`Sample is ${total.confidence}: ${total.views} views, ${total.visits} visits, ${total.activations} activations. Do not change the format on this alone.`);
   if (synthetic) notes.unshift('SYNTHETIC DATA: invented to test the pipeline, never quote it as a result.');
-  return { schema: 'systm/analysis@1', episode_id: episode, label: synthetic ? 'SYNTHETIC' : 'REAL', rows: clean.length, data_issues: issues, total, by_platform: byPlatform, notes };
+  return { schema: 'systm/analysis@1', episode_id: episode, label: synthetic ? 'SYNTHETIC' : 'REAL', rows: clean.length, rows_excluded: bad.size, data_issues: issues, total, by_platform: byPlatform, notes };
 }
 
 export function analysisMd(a) {

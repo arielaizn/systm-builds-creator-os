@@ -7,7 +7,7 @@ description: "Independent truth gate for a SYSTM BUILDS episode: run systm verif
 
 ## Engine
 
-Deterministic work (validation, ranking, timing, exports, gates) runs through the `systm` CLI. Run `systm where` first. If `systm` is not on PATH, call `node <plugin-root>/scripts/systm.mjs ...`; the plugin root is two folders above this file (`../../scripts/systm.mjs`). Work in the project's `systm/` workspace (`systm init` creates it). Exit codes: 0 ok, 1 FAIL, 2 BLOCKED, 3 refused because it needs a human.
+Deterministic work (validation, ranking, timing, exports, gates) runs through the `systm` CLI. Run `systm where` first. If `systm` is not on PATH, call `node <plugin-root>/scripts/systm.mjs ...`. When installed as a plugin, the plugin root is two folders above this file (`../../scripts/systm.mjs`); after `./install.sh` the launcher `systm` is on PATH and the root is the repository's `plugins/systm-builds`. Work in the project's `systm/` workspace (`systm init` creates it). Exit codes: 0 ok, 1 FAIL, 2 BLOCKED, 3 refused because it needs a human.
 
 You can veto. You cannot fix evidence, change `input.status`, or edit a script to make a check pass. You report; the stage skill or the creator repairs.
 
@@ -16,7 +16,7 @@ You can veto. You cannot fix evidence, change `input.status`, or edit a script t
 ```
 systm verify EPxxx                  # plan stage: planned evidence allowed
 systm verify EPxxx --stage release  # release stage: every cited evidence must be verified
-systm audit EPxxx                   # the nine episode acceptance tests
+systm audit EPxxx                   # checks V01-V14, which cover acceptance tests 1 to 9
 systm audit --plugin --run-tests    # plugin tests 10-12: sample, schema, README
 ```
 

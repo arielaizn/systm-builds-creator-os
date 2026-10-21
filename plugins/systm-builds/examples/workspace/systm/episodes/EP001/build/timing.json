@@ -4,6 +4,7 @@
   "status": "ready",
   "fps": 30,
   "wps": 2.7,
+  "calibration_stale": false,
   "wps_source": "config_estimate",
   "total_s": 63.311,
   "total_frames": 1899,

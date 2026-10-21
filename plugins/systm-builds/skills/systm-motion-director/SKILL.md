@@ -7,7 +7,7 @@ description: "Plan and build the MOTION layer of a SYSTM BUILDS episode from bui
 
 ## Engine
 
-Deterministic work (validation, ranking, timing, exports, gates) runs through the `systm` CLI. Run `systm where` first. If `systm` is not on PATH, call `node <plugin-root>/scripts/systm.mjs ...`; the plugin root is two folders above this file (`../../scripts/systm.mjs`). Work in the project's `systm/` workspace (`systm init` creates it). Exit codes: 0 ok, 1 FAIL, 2 BLOCKED, 3 refused because it needs a human.
+Deterministic work (validation, ranking, timing, exports, gates) runs through the `systm` CLI. Run `systm where` first. If `systm` is not on PATH, call `node <plugin-root>/scripts/systm.mjs ...`. When installed as a plugin, the plugin root is two folders above this file (`../../scripts/systm.mjs`); after `./install.sh` the launcher `systm` is on PATH and the root is the repository's `plugins/systm-builds`. Work in the project's `systm/` workspace (`systm init` creates it). Exit codes: 0 ok, 1 FAIL, 2 BLOCKED, 3 refused because it needs a human.
 
 The plugin ships the contract, not a video project. `systm build` writes `build/motion-props.json`; you build the compositions with whatever frame-driven renderer the creator has (Remotion, HyperFrames or similar). Check `systm doctor` for Remotion and Hebrew fonts first. If the creator has other motion skills installed, use them for craft and keep this skill for the contract.
 

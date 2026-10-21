@@ -1,10 +1,12 @@
 {
   "name": "systm-builds-marketplace",
-  "owner": { "name": "Ariel Aizenshtat", "url": "https://github.com/arielaizn" },
+  "owner": {
+    "name": "Ariel Aizenshtat",
+    "url": "https://github.com/arielaizn"
+  },
   "metadata": {
     "description": "SYSTM BUILDS Creator OS: מכונת תוכן לפורמט שבו יוצר בונה כלי עסקי לפי בקשות הקהל",
-    "version": "1.0.0",
-    "pluginRoot": "./plugins"
+    "version": "1.0.0"
   },
   "plugins": [
     {
@@ -12,9 +14,19 @@
       "source": "./plugins/systm-builds",
       "description": "מכונת תוכן ל-SYSTM BUILDS: רעיון, 12 הוקים מדורגים, מעטפ״ה, תסריט 13 ביטים, שוטליסט, EDL, כתוביות RTL, פסקול, מאמת עם וטו, שער שחרור למתנה, הפצה כתוכנית יבשה ואנליטיקס של משפך. 17 סקילים ומנוע CLI בלי תלויות.",
       "version": "1.0.0",
-      "author": { "name": "Ariel Aizenshtat · SYSTM" },
+      "author": {
+        "name": "Ariel Aizenshtat · SYSTM"
+      },
       "category": "productivity",
-      "keywords": ["systm", "content-machine", "hebrew", "rtl", "maatpa", "short-form", "מעטפה"]
+      "keywords": [
+        "systm",
+        "content-machine",
+        "hebrew",
+        "rtl",
+        "maatpa",
+        "short-form",
+        "מעטפה"
+      ]
     }
   ]
 }

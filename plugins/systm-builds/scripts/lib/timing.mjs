@@ -23,13 +23,16 @@ export function computeTiming(script, cfg) {
     r.start_frame = Math.round(r.start_s * fps);
     r.end_frame = r.n === rows[rows.length - 1].n ? totalFrames : Math.round(r.end_s * fps);
   }
+  const totalWords = rows.reduce((a, r) => a + r.words, 0);
+  const cal = script.calibration;
   return {
     fps,
     wps,
+    calibration_stale: Boolean(cal?.words) && Math.abs(totalWords - cal.words) / cal.words > 0.03,
     wps_source: script.calibration?.wps ? 'calibrated_from_recording' : 'config_estimate',
     total_s: total,
     total_frames: totalFrames,
-    total_words: rows.reduce((s, r) => s + r.words, 0),
+    total_words: totalWords,
     in_target_range: total >= cfg.format.target_min_s && total <= cfg.format.target_max_s,
     beats: rows,
   };

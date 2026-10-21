@@ -26,7 +26,7 @@
     {
       "id": "hosted_url_tested",
       "status": "FAIL",
-      "msg": "hosted URL has no tested_on/tested_by record"
+      "msg": "hosted URL needs tested_on (YYYY-MM-DD) and tested_by (a person)"
     },
     {
       "id": "repo_url",
@@ -36,7 +36,7 @@
     {
       "id": "repo_url_tested",
       "status": "FAIL",
-      "msg": "repo URL has no tested_on/tested_by record"
+      "msg": "repo URL needs tested_on (YYYY-MM-DD) and tested_by (a person)"
     },
     {
       "id": "urls_match_input",
@@ -46,7 +46,7 @@
     {
       "id": "license",
       "status": "FAIL",
-      "msg": "license is missing: published source without a license is not open source"
+      "msg": "license must be a recognised SPDX id (MIT, Apache-2.0, GPL-3.0-only, AGPL-3.0-only, ...): published source without a license is not open source"
     },
     {
       "id": "install",
@@ -86,7 +86,7 @@
     {
       "id": "screenshots",
       "status": "FAIL",
-      "msg": "screenshots are missing or the files do not exist"
+      "msg": "screenshots must be non-empty image files inside the episode folder"
     }
   ],
   "missing": [
@@ -94,18 +94,19 @@
     "episode status is PROTOTYPE",
     "version is empty",
     "hosted_url is missing or not https",
-    "hosted URL has no tested_on/tested_by record",
+    "hosted URL needs tested_on (YYYY-MM-DD) and tested_by (a person)",
     "repo_url is missing or not https",
-    "repo URL has no tested_on/tested_by record",
-    "license is missing: published source without a license is not open source",
+    "repo URL needs tested_on (YYYY-MM-DD) and tested_by (a person)",
+    "license must be a recognised SPDX id (MIT, Apache-2.0, GPL-3.0-only, AGPL-3.0-only, ...): published source without a license is not open source",
     "install instructions are missing",
     "hosted free-tier quotas are not disclosed",
     "hosting/API/third-party costs are not all disclosed",
     "privacy statement is missing",
     "known issues are missing",
     "support channel is missing",
-    "screenshots are missing or the files do not exist"
+    "screenshots must be non-empty image files inside the episode folder"
   ],
+  "url_check": "not_run",
   "provenance": {
     "stage": "launch",
     "tool": "systm@1.0.0",

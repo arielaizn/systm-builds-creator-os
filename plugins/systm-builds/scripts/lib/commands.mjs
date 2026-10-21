@@ -11,6 +11,7 @@ import { hookIssues, hooksMd, maatpaIssues, maatpaMd, noveltyConflicts, rankHook
 import { buildAll } from './build.mjs';
 import { lintText } from './he.mjs';
 import { loadRequests, runChecks, verifyMd } from './verify.mjs';
+import { beatTexts } from './scan.mjs';
 import { checkUrls, productGate } from './launch.mjs';
 import { buildPlan, distributionIssues, planMd, utmCsv } from './distribute.mjs';
 import { analysisMd, analyze } from './analytics.mjs';
@@ -244,15 +245,16 @@ export function cmdScript(ws, id, opts) {
     doc.calibration = { vo_seconds: sec, words: w, wps: Math.round((w / Math.max(1, sec - pauses)) * 1000) / 1000 };
     lines.push(`calibrated: ${w} words in ${sec}s (pauses ${pauses}s) → ${doc.calibration.wps} words/s`);
   }
-  doc.status = 'ready';
+  const lint = [];
+  let lintErrors = 0;
+  for (const b of doc.beats) for (const t of beatTexts(b)) for (const f of lintText(t.text, { hook: b.n === 1 && t.kind === 'vo' })) { lint.push(`${f.severity.toUpperCase()} ${t.where}: ${f.code} "${f.match}"`); if (f.severity === 'error') lintErrors++; }
+  doc.status = lintErrors ? 'needs_revision' : 'ready';
   doc.provenance = provenance('script', [p.input, p.maatpa, p.hooks]);
   writeJson(p.script, doc);
   const built = buildAll(p, doc, cfg, id);
   writeText(p.scriptMd, scriptMd(doc, built.timing, input));
-  const lint = [];
-  for (const b of doc.beats) for (const f of lintText(b.vo, { hook: b.n === 1 })) lint.push(`${f.severity.toUpperCase()} beat ${b.n}: ${f.code} "${f.match}"`);
-  lines.push(`script ok: ${built.timing.total_s}s est. (${built.timing.total_words} words at ${built.timing.wps}/s, ${built.timing.wps_source})${built.timing.in_target_range ? '' : ' OUTSIDE 60-75s target'}`, ...lint);
-  return res(0, lines, built.timing);
+  lines.push(`script ${lintErrors ? 'NEEDS REVISION' : 'ok'}: ${built.timing.total_s}s est. (${built.timing.total_words} words at ${built.timing.wps}/s, ${built.timing.wps_source})${built.timing.in_target_range ? '' : ' OUTSIDE 60-75s target'}`, ...lint);
+  return res(lintErrors ? 1 : 0, lines, built.timing);
 }
 
 export function cmdBuild(ws, id) {
@@ -286,8 +288,9 @@ function launchCore(ws, id) {
 }
 
 function launchWrite(ws, id, { p, g }) {
+  g.url_check ??= 'not_run';
   writeJson(p.gate, { schema: 'systm/gate@1', episode_id: id, ...g, provenance: provenance('launch', [p.input, p.product, p.script]) });
-  const lines = [`release gate: ${g.verdict}`, ...(g.verdict === 'BLOCKED' ? g.missing.map((m) => `  missing: ${m}`) : ['  all gate checks passed'])];
+  const lines = [`release gate: ${g.verdict}`, ...(g.verdict === 'BLOCKED' ? g.missing.map((m) => `  missing: ${m}`) : ['  all gate checks passed']), ...(g.verdict === 'OPEN' && g.url_check !== 'passed' ? ['  WARN the URLs were not checked from here: run `systm launch EPxxx --check-urls` before publishing'] : [])];
   if (g.verdict === 'BLOCKED') lines.push('  → the CTA must stay honest: cta.type "coming_soon" or "next_request_only", no link, no download words');
   return res(g.verdict === 'BLOCKED' ? 2 : 0, lines, g);
 }
@@ -301,6 +304,7 @@ export async function cmdLaunch(ws, id, opts) {
   if (opts['check-urls']) {
     const urls = await checkUrls([core.product.hosted_url, core.product.repo_url]);
     core.g.urls = urls;
+    core.g.url_check = urls.length && urls.every((u) => u.ok) ? 'passed' : 'failed';
     for (const u of urls) core.g.checks.push({ id: 'url_reachable', status: u.ok ? 'PASS' : 'FAIL', msg: `${u.url} → ${u.status ?? u.error}` });
     if (urls.some((u) => !u.ok)) { core.g.verdict = 'BLOCKED'; core.g.missing.push('a URL did not answer 2xx/3xx'); }
   }
@@ -315,7 +319,7 @@ export function cmdDistribute(ws, id) {
   schemaGate('distribution', dist, 'distribution.json');
   const product = exists(p.product) ? readJson(p.product) : null;
   const gate = product ? productGate(product, input, p.dir) : { verdict: 'BLOCKED', missing: ['product.json missing'], checks: [] };
-  const issues = distributionIssues(dist, input, gate, cfg);
+  const issues = distributionIssues(dist, input, gate, cfg, exists(p.script) ? readJson(p.script) : null);
   const errors = issues.filter((i) => i.severity === 'error');
   const lines = issues.map((i) => `${i.severity.toUpperCase()} ${i.msg}`);
   if (errors.length) return res(1, ['distribution blocked:', ...lines], issues);
@@ -339,6 +343,7 @@ export async function cmdApprove(ws, id, opts) {
   if (!item) throw new CliError(`--action must be one of: ${plan.items.map((i) => i.action).join(', ')}`);
   if (!opts.by) throw new CliError('--by "<your name>" is required');
   if (!process.stdin.isTTY || !process.stdout.isTTY) throw new CliError('approval needs a human at an interactive terminal. An agent must not approve its own posts. Run this command yourself (in Claude Code: type ! systm approve ...).', 3);
+  if (/^(agent|claude|codex|openclaw|ai|assistant|bot|gpt|llm|model|system)\b/i.test(String(opts.by).trim())) throw new CliError('--by must be the name of the person approving', 3);
   console.log(`\nApprove ${action} for ${id}\n\n${JSON.stringify(item.fields, null, 2)}\nlink: ${item.link ?? '(none)'}\n`);
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   const answer = await new Promise((r) => rl.question(`Type the first 8 characters of the content hash (${item.content_sha256.slice(0, 8)}) to approve: `, r));
@@ -362,21 +367,32 @@ export function cmdPackage(ws, id, opts) {
   const timing = readJson(p.timing);
   const files = walk(p.dir, (f) => !f.includes(`${path.sep}package${path.sep}`) && !f.endsWith('.DS_Store'));
   const releaseRep = runChecks(ws, id, { stage: 'release' });
+  const script = readJson(p.script);
   const reasons = [];
-  if (releaseRep.verdict !== 'PASS' && releaseRep.verdict !== 'WARN') reasons.push(`release-stage verifier is ${releaseRep.verdict}`);
-  for (const c of releaseRep.checks.filter((k) => k.status === 'FAIL' || k.status === 'BLOCKED')) reasons.push(`${c.id} ${c.title}: ${c.details[0] ?? c.status}`);
+  if (releaseRep.verdict === 'FAIL' || releaseRep.verdict === 'BLOCKED') for (const c of releaseRep.checks.filter((k) => k.status === 'FAIL' || k.status === 'BLOCKED')) reasons.push(`${c.id} ${c.title}: ${c.details[0] ?? c.status}`);
+  if (timing.wps_source !== 'calibrated_from_recording') reasons.push('timing is an estimate: record the VO and run `systm script --calibrate-seconds`');
+  if (timing.calibration_stale) reasons.push('calibration is stale: the VO changed after it was measured');
+  const media = exists(p.media) ? readJson(p.media) : null;
+  if (!media) reasons.push('no media QA on a rendered video: run `systm qa-media <video> --episode ' + id + '`');
+  else if (media.verdict === 'FAIL' || media.verdict === 'BLOCKED') reasons.push(`media QA is ${media.verdict}`);
+  const product = exists(p.product) ? readJson(p.product) : null;
+  const liveGate = product ? productGate(product, input, p.dir) : { verdict: 'BLOCKED', missing: ['product.json missing'] };
+  if (script.cta.type === 'giveaway') {
+    if (liveGate.verdict !== 'OPEN') reasons.push(`giveaway CTA while the release gate is BLOCKED: ${liveGate.missing.slice(0, 3).join('; ')}`);
+    else if (gate?.url_check !== 'passed') reasons.push('giveaway CTA but the URLs were never checked: run `systm launch --check-urls`');
+  }
   const manifest = {
     schema: 'systm/package@1', episode_id: id, product: input.product, mode: input.status,
     format: cfg.format.width + 'x' + cfg.format.height + '@' + cfg.format.fps, duration_s: timing.total_s, frames: timing.total_frames,
     verifier: { plan: rep.verdict, release: releaseRep.verdict },
-    release_gate: gate?.verdict ?? 'NOT_RUN',
-    ready_to_publish: releaseRep.verdict !== 'FAIL' && releaseRep.verdict !== 'BLOCKED' && gate?.verdict !== 'BLOCKED',
+    release_gate: liveGate.verdict, cta: script.cta.type,
+    ready_to_publish: reasons.length === 0,
     blocked_by: reasons,
     files: files.map((f) => ({ file: path.relative(p.dir, f), bytes: fs.statSync(f).size, sha256: sha256(fs.readFileSync(f)) })),
     provenance: provenance('package', [p.script, p.timing, p.verify]),
   };
   writeJson(p.manifest, manifest);
-  const lines = [`manifest: ${manifest.files.length} files, ready_to_publish=${manifest.ready_to_publish}`, ...reasons.slice(0, 8).map((r) => `  blocked: ${r}`)];
+  const lines = [`manifest: ${manifest.files.length} files, ready_to_publish=${manifest.ready_to_publish}`, ...reasons.slice(0, 10).map((r) => `  blocked: ${r}`)];
   if (opts.zip) {
     fs.mkdirSync(ws.out, { recursive: true });
     const zip = path.join(ws.out, `${id}-package.zip`);
@@ -411,7 +427,9 @@ export function cmdQaMedia(ws, file, opts) {
   const cfg = loadConfig(ws);
   let timing = null;
   if (opts.episode) { const p = epPaths(ws, opts.episode); if (exists(p.timing)) timing = readJson(p.timing); }
+  if (!file || !exists(path.resolve(file))) throw new CliError('qa-media <video file> [--episode EPxxx] [--frames dir]: the video file was not found');
   const r = qaMedia(path.resolve(file), cfg, { timing, framesDir: opts.frames ? path.resolve(opts.frames) : null });
+  if (opts.episode) writeJson(epPaths(ws, opts.episode).media, { schema: 'systm/media-qa@1', episode_id: opts.episode, file: path.basename(file), verdict: r.verdict, duration_s: r.duration_s ?? null, checks: r.checks });
   return res(r.verdict === 'FAIL' ? 1 : r.verdict === 'BLOCKED' ? 2 : 0, [...r.checks.map((c) => `${c.status.padEnd(7)} ${c.id} ${c.msg}`), `media verdict: ${r.verdict}`], r);
 }
 
@@ -518,7 +536,8 @@ export function pluginChecks(root, { runTests = false } = {}) {
   const st = selfTest(root);
   pass('sample_reproducible', st.ok ? 'PASS' : 'FAIL', st.ok ? `EP001 sample regenerates byte-identically (${st.files} files)` : `sample drift: ${st.diffs.slice(0, 5).join('; ')}`);
   if (runTests) {
-    const t = spawnSync(process.execPath, ['--test', path.join(root, 'tests', '*.test.mjs')], { encoding: 'utf8' });
+    const files = fs.readdirSync(path.join(root, 'tests')).filter((f) => f.endsWith('.test.mjs')).sort().map((f) => path.join(root, 'tests', f));
+    const t = spawnSync(process.execPath, ['--test', ...files], { encoding: 'utf8' });
     const m = (t.stdout ?? '').match(/# pass (\d+)[\s\S]*?# fail (\d+)/);
     pass('unit_tests', t.status === 0 ? 'PASS' : 'FAIL', m ? `${m[1]} passed, ${m[2]} failed` : (t.stderr || t.stdout).slice(0, 200));
   } else pass('unit_tests', 'BLOCKED', 'not run: pass --run-tests (or run `npm test`)');

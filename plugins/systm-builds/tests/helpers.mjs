@@ -25,7 +25,7 @@ export function tmpSample() {
     dir,
     ep: path.join(dir, 'systm', 'episodes', 'EP001'),
     read(rel) { return JSON.parse(fs.readFileSync(path.join(this.ep, rel), 'utf8')); },
-    write(rel, obj) { fs.writeFileSync(path.join(this.ep, rel), JSON.stringify(obj, null, 2) + '\n'); },
+    write(rel, obj) { fs.mkdirSync(path.dirname(path.join(this.ep, rel)), { recursive: true }); fs.writeFileSync(path.join(this.ep, rel), JSON.stringify(obj, null, 2) + '\n'); },
     edit(rel, fn) { const o = this.read(rel); fn(o); this.write(rel, o); },
     cleanup() { fs.rmSync(dir, { recursive: true, force: true }); },
   };

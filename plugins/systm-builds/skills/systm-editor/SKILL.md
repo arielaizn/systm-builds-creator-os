@@ -7,7 +7,7 @@ description: "Assemble and check a SYSTM BUILDS edit: EDL with frame ranges, VO 
 
 ## Engine
 
-Deterministic work (validation, ranking, timing, exports, gates) runs through the `systm` CLI. Run `systm where` first. If `systm` is not on PATH, call `node <plugin-root>/scripts/systm.mjs ...`; the plugin root is two folders above this file (`../../scripts/systm.mjs`). Work in the project's `systm/` workspace (`systm init` creates it). Exit codes: 0 ok, 1 FAIL, 2 BLOCKED, 3 refused because it needs a human.
+Deterministic work (validation, ranking, timing, exports, gates) runs through the `systm` CLI. Run `systm where` first. If `systm` is not on PATH, call `node <plugin-root>/scripts/systm.mjs ...`. When installed as a plugin, the plugin root is two folders above this file (`../../scripts/systm.mjs`); after `./install.sh` the launcher `systm` is on PATH and the root is the repository's `plugins/systm-builds`. Work in the project's `systm/` workspace (`systm init` creates it). Exit codes: 0 ok, 1 FAIL, 2 BLOCKED, 3 refused because it needs a human.
 
 ## After the VO is recorded
 
@@ -27,7 +27,7 @@ Tell the creator how to import SRT/VTT in their editor. Burned-in Hebrew with ff
 ## Check the render
 
 ```
-systm qa-media out/EP001.mp4 --episode EP001 --frames out/frames
+systm qa-media systm/out/EP001.mp4 --episode EP001 --frames systm/out/frames
 ```
 
 It checks: 1080x1920, 30fps, duration inside 60 to 75s (45 to 90s is a WARN range), audio present, black frames, sample peak, integrated loudness (target -14 LUFS, plus or minus 2) and true peak, silences over 1.5 seconds (only the twist should be silent), and writes one frame per beat.

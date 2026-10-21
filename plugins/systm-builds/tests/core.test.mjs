@@ -117,8 +117,8 @@ test('maatpa: an axis under 3 and an unknown novelty key are errors', () => {
 test('release gate: complete product opens, each gap blocks', () => {
   const dir = fs.mkdtempSync(path.join(fs.realpathSync(process.env.TMPDIR ?? '/tmp'), 'gate-'));
   fs.writeFileSync(path.join(dir, 'shot.png'), 'x');
-  const input = { status: 'BUILT', hosted_url: 'https://app.example.com', repo_url: 'https://github.com/x/y' };
-  const full = { name: 'x', status: 'BUILT', version: '1.0.0', capabilities: ['a'], hosted_url: input.hosted_url, hosted_url_tested: { tested_on: '2026-01-01', tested_by: 'me' }, repo_url: input.repo_url, repo_url_tested: { tested_on: '2026-01-01', tested_by: 'me' }, license: 'MIT', install: 'npm i', quotas: '100 per day', costs: { hosting: 'free tier', api: 'my key', third_party: 'none' }, privacy: 'no data stored', known_issues: ['slow on 10k rows'], support: 'issues page', screenshots: ['shot.png'], free_forever_claim: false };
+  const input = { status: 'BUILT', hosted_url: 'https://app.followup-demo.dev', repo_url: 'https://github.com/acme-co/tool' };
+  const full = { name: 'x', status: 'BUILT', version: '1.0.0', capabilities: ['a'], hosted_url: input.hosted_url, hosted_url_tested: { tested_on: '2026-01-01', tested_by: 'Dana' }, repo_url: input.repo_url, repo_url_tested: { tested_on: '2026-01-01', tested_by: 'Dana' }, license: 'MIT', install: 'npm i', quotas: '100 per day', costs: { hosting: 'free tier', api: 'my key', third_party: 'none' }, privacy: 'no data stored', known_issues: ['slow on 10k rows'], support: 'issues page', screenshots: ['shot.png'], free_forever_claim: false };
   try {
     assert.equal(productGate(full, input, dir).verdict, 'OPEN');
     for (const [k, v] of [['license', null], ['hosted_url', null], ['quotas', ''], ['known_issues', []], ['screenshots', ['nope.png']], ['install', 'TODO']]) {
@@ -150,6 +150,10 @@ test('the engine contains no code that writes to a remote service', () => {
     const t = fs.readFileSync(f, 'utf8');
     assert.ok(!/method:\s*['"](POST|PUT|PATCH|DELETE)['"]/i.test(t), `${f} has a write method`);
     assert.ok(!/from ['"]node:(http|https|net|tls)['"]/.test(t), `${f} imports a raw network module`);
-    if (/fetch\(/.test(t)) assert.ok(f.endsWith('launch.mjs') && /method:\s*'HEAD'/.test(t), `${f} uses fetch outside the HEAD URL check`);
+    if (/fetch\(/.test(t)) {
+      assert.ok(f.endsWith('launch.mjs'), `${f} uses fetch outside the URL check`);
+      const methods = [...t.matchAll(/hit\(url, '([A-Z]+)'\)/g)].map((m) => m[1]);
+      assert.ok(methods.length > 0 && methods.every((m) => ['HEAD', 'GET'].includes(m)), `URL check may only HEAD or GET, found ${methods}`);
+    }
   }
 });

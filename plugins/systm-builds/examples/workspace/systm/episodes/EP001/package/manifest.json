@@ -11,10 +11,12 @@
     "release": "FAIL"
   },
   "release_gate": "BLOCKED",
+  "cta": "coming_soon",
   "ready_to_publish": false,
   "blocked_by": [
-    "release-stage verifier is FAIL",
-    "V09 No invented proof (claims need evidence): C1: evidence E1 is not verified yet"
+    "V09 No invented proof (claims need evidence): C1: evidence E1 is not verified yet",
+    "timing is an estimate: record the VO and run `systm script --calibrate-seconds`",
+    "no media QA on a rendered video: run `systm qa-media <video> --episode EP001`"
   ],
   "files": [
     {
@@ -49,8 +51,8 @@
     },
     {
       "file": "build/timing.json",
-      "bytes": 3859,
-      "sha256": "375ed56c76c8de0cd589b50c59fd44921b573bc5b846ebb0acdada23ea18778a"
+      "bytes": 3889,
+      "sha256": "2f7d08b05760cff5952318a7efc087503d8939395e27c91f01d39c7a8941a2c8"
     },
     {
       "file": "build/vo.txt",
@@ -99,8 +101,8 @@
     },
     {
       "file": "launch/gate.json",
-      "bytes": 3301,
-      "sha256": "4ee0c381a1d143c861718e4585eb4a1e02fd618d8a614fdc8921f4f5f2216542"
+      "bytes": 3583,
+      "sha256": "3d3675073a1e879c99317a5c96cfe8a3162e138d8b684916d3ed2f3cfe3a3848"
     },
     {
       "file": "maatpa.json",
@@ -129,13 +131,13 @@
     },
     {
       "file": "verify/report.json",
-      "bytes": 3177,
-      "sha256": "48bb7f02fb330584479c953a19d6dfa119f2612b501a8e35e550f77d54bbca78"
+      "bytes": 3218,
+      "sha256": "054d9e563d7e7e590013b16ef70815b03149fcbce346ccdf54c3512e57002de1"
     },
     {
       "file": "verify/report.md",
-      "bytes": 1424,
-      "sha256": "cd277ca571335b14ed02ed2b8d5c31c579b8a1f3e551ecb362abf5c9648a83f3"
+      "bytes": 1465,
+      "sha256": "e93fb2e8518962b66fa0cdde8758a57b62241c498c34cdcc9baf15677abbd89c"
     }
   ],
   "provenance": {
@@ -148,11 +150,11 @@
       },
       {
         "file": "timing.json",
-        "sha256": "d90a5f8518995142596e3662ef5211fe3462692117d50ba88129695900125dd0"
+        "sha256": "daa737ec1c4b0c54055ae1dc0d73e2d4f1ba42a0a75253b68b90f0ac2a1d5555"
       },
       {
         "file": "report.json",
-        "sha256": "063917f532c87c9a995b8a09f248cb17e5a2badd4703ffe64ae815ef6bc25ccb"
+        "sha256": "569c391a66019ef244cd966384692c8d0e7fd5d5fa5e3ece589e78cedad1cedc"
       }
     ]
   }

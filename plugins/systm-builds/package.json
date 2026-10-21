@@ -4,10 +4,14 @@
   "description": "SYSTM BUILDS Creator OS engine and skills",
   "type": "module",
   "license": "MIT",
-  "bin": { "systm": "bin/systm" },
-  "engines": { "node": ">=20" },
+  "bin": {
+    "systm": "bin/systm"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "test": "node --test \"tests/*.test.mjs\"",
+    "test": "node --test tests/core.test.mjs tests/verify.test.mjs tests/cli.test.mjs tests/release-path.test.mjs tests/review-fixes.test.mjs",
     "selftest": "node scripts/systm.mjs selftest",
     "audit": "node scripts/systm.mjs audit --plugin --run-tests",
     "sync": "node scripts/sync-references.mjs"

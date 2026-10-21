@@ -1,9 +1,8 @@
 import { toCsv } from './csv.mjs';
 import { lintText } from './he.mjs';
 import { sha256, wordCount } from './util.mjs';
+import { claimHits, distributionTexts, giveawayOffenders } from './scan.mjs';
 
-const GIVEAWAY = /(בחינם|חינם|להוריד|הורדה|קוד פתוח|גיטהאב|github|מתנה)/iu;
-const SOFT = /(עדיין|בקרוב|כשזה|אחרי שזה|אחרי שאני|לא\s|אין\s)/u;
 
 export function utmUrl(base, cfg, platform, id, hookId, keyword) {
   if (!base) return null;
@@ -16,7 +15,7 @@ export function utmUrl(base, cfg, platform, id, hookId, keyword) {
   return u.toString();
 }
 
-export function distributionIssues(dist, input, gate, cfg) {
+export function distributionIssues(dist, input, gate, cfg, script = null) {
   const issues = [];
   const lim = cfg.platform_limits;
   const P = dist.platforms;
@@ -28,9 +27,13 @@ export function distributionIssues(dist, input, gate, cfg) {
   len('linkedin caption', P.linkedin.caption, lim.linkedin_caption);
   if (wordCount(dist.thumbnail_text) > lim.thumbnail_words) issues.push({ severity: 'warn', msg: `thumbnail text has ${wordCount(dist.thumbnail_text)} words, keep it under ${lim.thumbnail_words + 1}` });
   const texts = { instagram: `${P.instagram.caption} ${P.instagram.story_teaser}`, tiktok: P.tiktok.caption, shorts: `${P.shorts.title} ${P.shorts.description}`, linkedin: P.linkedin.caption };
+  const all = distributionTexts(dist);
   if (gate.verdict === 'BLOCKED') {
-    for (const [pl, t] of Object.entries(texts)) {
-      for (const s of t.split(/(?<=[.!?\n])\s*/)) if (GIVEAWAY.test(s) && !SOFT.test(s)) issues.push({ severity: 'error', msg: `${pl} copy offers access while the release gate is blocked: "${s.trim().slice(0, 70)}"` });
+    for (const t of all) for (const sent of giveawayOffenders(t.text)) issues.push({ severity: 'error', msg: `${t.where} offers access while the release gate is blocked: "${sent.slice(0, 70)}"` });
+  }
+  for (const t of all) {
+    for (const h of claimHits(t.text)) {
+      if (!script || !(script.claims ?? []).some((c) => c.type === h.type)) issues.push({ severity: 'error', msg: `${t.where} says "${h.match}" (${h.type}) and the script has no ${h.type} claim backing it` });
     }
   }
   if (dist.link_policy === 'keyword_dm' && !dist.dm?.integration_verified) issues.push({ severity: 'error', msg: 'link_policy keyword_dm needs dm.integration_verified=true; otherwise use library_link' });

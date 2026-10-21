@@ -98,7 +98,7 @@
       "acceptance": 8,
       "status": "PASS",
       "details": [
-        "19 files scanned"
+        "nothing found in the episode files or the requests ledger"
       ]
     },
     {
@@ -132,7 +132,7 @@
       },
       {
         "file": "timing.json",
-        "sha256": "d90a5f8518995142596e3662ef5211fe3462692117d50ba88129695900125dd0"
+        "sha256": "daa737ec1c4b0c54055ae1dc0d73e2d4f1ba42a0a75253b68b90f0ac2a1d5555"
       }
     ]
   }
