@@ -1,0 +1,127 @@
+{
+  "schema": "systm/gate@1",
+  "episode_id": "EP001",
+  "verdict": "BLOCKED",
+  "checks": [
+    {
+      "id": "status_built",
+      "status": "FAIL",
+      "msg": "product status is PROTOTYPE, only BUILT can be given away"
+    },
+    {
+      "id": "input_status_built",
+      "status": "FAIL",
+      "msg": "episode status is PROTOTYPE"
+    },
+    {
+      "id": "version",
+      "status": "FAIL",
+      "msg": "version is empty"
+    },
+    {
+      "id": "hosted_url",
+      "status": "FAIL",
+      "msg": "hosted_url is missing or not https"
+    },
+    {
+      "id": "hosted_url_tested",
+      "status": "FAIL",
+      "msg": "hosted URL has no tested_on/tested_by record"
+    },
+    {
+      "id": "repo_url",
+      "status": "FAIL",
+      "msg": "repo_url is missing or not https"
+    },
+    {
+      "id": "repo_url_tested",
+      "status": "FAIL",
+      "msg": "repo URL has no tested_on/tested_by record"
+    },
+    {
+      "id": "urls_match_input",
+      "status": "PASS",
+      "msg": "product URLs differ from episode input URLs"
+    },
+    {
+      "id": "license",
+      "status": "FAIL",
+      "msg": "license is missing: published source without a license is not open source"
+    },
+    {
+      "id": "install",
+      "status": "FAIL",
+      "msg": "install instructions are missing"
+    },
+    {
+      "id": "quotas",
+      "status": "FAIL",
+      "msg": "hosted free-tier quotas are not disclosed"
+    },
+    {
+      "id": "costs",
+      "status": "FAIL",
+      "msg": "hosting/API/third-party costs are not all disclosed"
+    },
+    {
+      "id": "privacy",
+      "status": "FAIL",
+      "msg": "privacy statement is missing"
+    },
+    {
+      "id": "known_issues",
+      "status": "FAIL",
+      "msg": "known issues are missing"
+    },
+    {
+      "id": "support",
+      "status": "FAIL",
+      "msg": "support channel is missing"
+    },
+    {
+      "id": "capabilities",
+      "status": "PASS",
+      "msg": "capabilities list is empty"
+    },
+    {
+      "id": "screenshots",
+      "status": "FAIL",
+      "msg": "screenshots are missing or the files do not exist"
+    }
+  ],
+  "missing": [
+    "product status is PROTOTYPE, only BUILT can be given away",
+    "episode status is PROTOTYPE",
+    "version is empty",
+    "hosted_url is missing or not https",
+    "hosted URL has no tested_on/tested_by record",
+    "repo_url is missing or not https",
+    "repo URL has no tested_on/tested_by record",
+    "license is missing: published source without a license is not open source",
+    "install instructions are missing",
+    "hosted free-tier quotas are not disclosed",
+    "hosting/API/third-party costs are not all disclosed",
+    "privacy statement is missing",
+    "known issues are missing",
+    "support channel is missing",
+    "screenshots are missing or the files do not exist"
+  ],
+  "provenance": {
+    "stage": "launch",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "input.json",
+        "sha256": "3f42c2e6d98e4f0b46cfdedcffe234d815e7f7ba43e9b9d6ef1a119a9195f210"
+      },
+      {
+        "file": "product.json",
+        "sha256": "f6c788019531c9ae76e5d6ccf18eb3be7099eff936e637d7b0082c911f590a6d"
+      },
+      {
+        "file": "script.json",
+        "sha256": "702c5e98ad6f30a82ce7210540ba528215e1f809cf57fa77dc9619a0b054742b"
+      }
+    ]
+  }
+}

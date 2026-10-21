@@ -1,0 +1,10 @@
+#!/bin/sh
+# Launcher: resolves symlinks, then runs the engine with node.
+src="$0"
+while [ -h "$src" ]; do
+  dir=$(cd "$(dirname "$src")" && pwd -P)
+  src=$(readlink "$src")
+  case "$src" in /*) ;; *) src="$dir/$src" ;; esac
+done
+root=$(cd "$(dirname "$src")/.." && pwd -P)
+exec node "$root/scripts/systm.mjs" "$@"

@@ -1,0 +1,141 @@
+{
+  "schema": "systm/analysis@1",
+  "episode_id": "EP001",
+  "label": "SYNTHETIC",
+  "rows": 4,
+  "data_issues": [],
+  "total": {
+    "key": "all",
+    "views": 25000,
+    "visits": 780,
+    "activations": 29,
+    "consultations": 2,
+    "visit_rate": 0.0312,
+    "visit_rate_ci": {
+      "lo": 0.0291,
+      "hi": 0.0334
+    },
+    "activation_rate": 0.0372,
+    "activation_rate_ci": {
+      "lo": 0.026,
+      "hi": 0.0529
+    },
+    "consult_rate": 0.069,
+    "consult_rate_ci": {
+      "lo": 0.0191,
+      "hi": 0.2196
+    },
+    "activations_per_1000_views": 1.16,
+    "consultations_per_1000_views": 0.08,
+    "confidence": "low"
+  },
+  "by_platform": [
+    {
+      "key": "instagram",
+      "views": 10000,
+      "visits": 300,
+      "activations": 12,
+      "consultations": 1,
+      "visit_rate": 0.03,
+      "visit_rate_ci": {
+        "lo": 0.0268,
+        "hi": 0.0335
+      },
+      "activation_rate": 0.04,
+      "activation_rate_ci": {
+        "lo": 0.023,
+        "hi": 0.0686
+      },
+      "consult_rate": 0.0833,
+      "consult_rate_ci": {
+        "lo": 0.0149,
+        "hi": 0.3539
+      },
+      "activations_per_1000_views": 1.2,
+      "consultations_per_1000_views": 0.1,
+      "confidence": "low"
+    },
+    {
+      "key": "linkedin",
+      "views": 2000,
+      "visits": 90,
+      "activations": 2,
+      "consultations": 0,
+      "visit_rate": 0.045,
+      "visit_rate_ci": {
+        "lo": 0.0368,
+        "hi": 0.055
+      },
+      "activation_rate": 0.0222,
+      "activation_rate_ci": {
+        "lo": 0.0061,
+        "hi": 0.0774
+      },
+      "consult_rate": 0,
+      "consult_rate_ci": {
+        "lo": 0,
+        "hi": 0.6576
+      },
+      "activations_per_1000_views": 1,
+      "consultations_per_1000_views": 0,
+      "confidence": "low"
+    },
+    {
+      "key": "shorts",
+      "views": 5000,
+      "visits": 150,
+      "activations": 6,
+      "consultations": 1,
+      "visit_rate": 0.03,
+      "visit_rate_ci": {
+        "lo": 0.0256,
+        "hi": 0.0351
+      },
+      "activation_rate": 0.04,
+      "activation_rate_ci": {
+        "lo": 0.0185,
+        "hi": 0.0845
+      },
+      "consult_rate": 0.1667,
+      "consult_rate_ci": {
+        "lo": 0.0301,
+        "hi": 0.5635
+      },
+      "activations_per_1000_views": 1.2,
+      "consultations_per_1000_views": 0.2,
+      "confidence": "low"
+    },
+    {
+      "key": "tiktok",
+      "views": 8000,
+      "visits": 240,
+      "activations": 9,
+      "consultations": 0,
+      "visit_rate": 0.03,
+      "visit_rate_ci": {
+        "lo": 0.0265,
+        "hi": 0.034
+      },
+      "activation_rate": 0.0375,
+      "activation_rate_ci": {
+        "lo": 0.0199,
+        "hi": 0.0697
+      },
+      "consult_rate": 0,
+      "consult_rate_ci": {
+        "lo": 0,
+        "hi": 0.2992
+      },
+      "activations_per_1000_views": 1.13,
+      "consultations_per_1000_views": 0,
+      "confidence": "low"
+    }
+  ],
+  "notes": [
+    "SYNTHETIC DATA: invented to test the pipeline, never quote it as a result.",
+    "Headline metrics are activations and qualified consultations per 1,000 views. Views alone are not a result.",
+    "Rates carry Wilson 95% intervals. If two intervals overlap, the difference is not shown by this data.",
+    "No causal claims: this file cannot say a hook, a novelty element or a platform caused a difference.",
+    "Sample is low: 25000 views, 780 visits, 29 activations. Do not change the format on this alone."
+  ]
+}

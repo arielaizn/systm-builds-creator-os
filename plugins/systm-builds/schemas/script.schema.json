@@ -1,0 +1,296 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "episode_id",
+    "status",
+    "beats",
+    "claims",
+    "sound",
+    "cta"
+  ],
+  "properties": {
+    "schema": {
+      "const": "systm/script@1"
+    },
+    "episode_id": {
+      "type": "string",
+      "pattern": "^EP\\d{3,4}$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_revision",
+        "blocked"
+      ]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "type": "object",
+        "required": [
+          "n",
+          "vo",
+          "on_screen_text",
+          "mode",
+          "asset",
+          "framing",
+          "action",
+          "sound_cue",
+          "viewer_question",
+          "evidence",
+          "transition"
+        ],
+        "properties": {
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 13
+          },
+          "vo": {
+            "type": "string"
+          },
+          "on_screen_text": {
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "A-CAM",
+              "SCREEN",
+              "MOTION"
+            ]
+          },
+          "asset": {
+            "type": "string"
+          },
+          "framing": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "sound_cue": {
+            "type": "string"
+          },
+          "viewer_question": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^E\\d+$"
+            }
+          },
+          "transition": {
+            "type": "string"
+          },
+          "duration_s": {
+            "type": "number",
+            "minimum": 0.5
+          },
+          "pause_after_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "combined_with": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 13
+          },
+          "alternates": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "string"
+            }
+          },
+          "shots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "mode"
+              ],
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "A-CAM",
+                    "SCREEN",
+                    "MOTION"
+                  ]
+                },
+                "asset": {
+                  "type": "string"
+                },
+                "framing": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                },
+                "overlay": {
+                  "type": "string"
+                },
+                "audio": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "weight": {
+                  "type": "number",
+                  "minimum": 0.1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "type",
+          "beat",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^C\\d+$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "built",
+              "result",
+              "time_saved",
+              "roi",
+              "quote",
+              "customer",
+              "social_proof",
+              "availability",
+              "cost"
+            ]
+          },
+          "beat": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 13
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^E\\d+$"
+            }
+          },
+          "request_ref": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sound": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "beat",
+          "type",
+          "note"
+        ],
+        "properties": {
+          "beat": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 13
+          },
+          "type": {
+            "enum": [
+              "VO",
+              "MUSIC",
+              "SFX",
+              "UI",
+              "SILENCE",
+              "REVEAL_HIT",
+              "SONIC_LOGO"
+            ]
+          },
+          "offset_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "asset": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "duck_db": {
+            "type": "number"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "cta": {
+      "type": "object",
+      "required": [
+        "type",
+        "next_request"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "giveaway",
+            "coming_soon",
+            "next_request_only"
+          ]
+        },
+        "giveaway": {
+          "type": "string"
+        },
+        "next_request": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "synthetic_label": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "schema": "systm/timing@1",
+  "episode_id": "EP001",
+  "status": "ready",
+  "fps": 30,
+  "wps": 2.7,
+  "wps_source": "config_estimate",
+  "total_s": 63.311,
+  "total_frames": 1899,
+  "total_words": 165,
+  "in_target_range": true,
+  "beats": [
+    {
+      "n": 1,
+      "name": "קליף מושאל",
+      "start_s": 0,
+      "end_s": 4.333,
+      "dur_s": 4.333,
+      "words": 9,
+      "pause_after_s": 1,
+      "combined_with": null,
+      "start_frame": 0,
+      "end_frame": 130
+    },
+    {
+      "n": 2,
+      "name": "הופך לשאלה",
+      "start_s": 4.333,
+      "end_s": 7.666,
+      "dur_s": 3.333,
+      "words": 9,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 130,
+      "end_frame": 230
+    },
+    {
+      "n": 3,
+      "name": "שתי סכנות",
+      "start_s": 7.666,
+      "end_s": 12.851,
+      "dur_s": 5.185,
+      "words": 14,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 230,
+      "end_frame": 386
+    },
+    {
+      "n": 4,
+      "name": "שאלה פתוחה",
+      "start_s": 12.851,
+      "end_s": 16.555,
+      "dur_s": 3.704,
+      "words": 10,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 386,
+      "end_frame": 497
+    },
+    {
+      "n": 5,
+      "name": "קודם כל צריך להבין",
+      "start_s": 16.555,
+      "end_s": 21.74,
+      "dur_s": 5.185,
+      "words": 14,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 497,
+      "end_frame": 652
+    },
+    {
+      "n": 6,
+      "name": "הורג אפשרויות",
+      "start_s": 21.74,
+      "end_s": 26.925,
+      "dur_s": 5.185,
+      "words": 14,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 652,
+      "end_frame": 808
+    },
+    {
+      "n": 7,
+      "name": "מאשר את המקור",
+      "start_s": 26.925,
+      "end_s": 32.481,
+      "dur_s": 5.556,
+      "words": 15,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 808,
+      "end_frame": 974
+    },
+    {
+      "n": 8,
+      "name": "מושג חדש עם שם",
+      "start_s": 32.481,
+      "end_s": 36.925,
+      "dur_s": 4.444,
+      "words": 12,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 974,
+      "end_frame": 1108
+    },
+    {
+      "n": 9,
+      "name": "פתיחה מחדש",
+      "start_s": 36.925,
+      "end_s": 40.688,
+      "dur_s": 3.763,
+      "words": 8,
+      "pause_after_s": 0.8,
+      "combined_with": null,
+      "start_frame": 1108,
+      "end_frame": 1221
+    },
+    {
+      "n": 10,
+      "name": "הפתרון",
+      "start_s": 40.688,
+      "end_s": 45.503,
+      "dur_s": 4.815,
+      "words": 13,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 1221,
+      "end_frame": 1365
+    },
+    {
+      "n": 11,
+      "name": "הוכחה שרואים",
+      "start_s": 45.503,
+      "end_s": 51.088,
+      "dur_s": 5.585,
+      "words": 14,
+      "pause_after_s": 0.4,
+      "combined_with": null,
+      "start_frame": 1365,
+      "end_frame": 1533
+    },
+    {
+      "n": 12,
+      "name": "התנאי שבלעדיו זה נופל",
+      "start_s": 51.088,
+      "end_s": 56.644,
+      "dur_s": 5.556,
+      "words": 15,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 1533,
+      "end_frame": 1699
+    },
+    {
+      "n": 13,
+      "name": "סגירה",
+      "start_s": 56.644,
+      "end_s": 63.311,
+      "dur_s": 6.667,
+      "words": 18,
+      "pause_after_s": 0,
+      "combined_with": null,
+      "start_frame": 1699,
+      "end_frame": 1899
+    }
+  ],
+  "provenance": {
+    "stage": "build",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "script.json",
+        "sha256": "702c5e98ad6f30a82ce7210540ba528215e1f809cf57fa77dc9619a0b054742b"
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "schema": "systm/publish-plan@1",
+  "episode_id": "EP001",
+  "dry_run": true,
+  "remote_writes": [],
+  "gate": "BLOCKED",
+  "link_policy": "library_link",
+  "notes": [
+    "No links in the plan: the release gate is BLOCKED, copy must stay honest (\"coming soon\").",
+    "Nothing is posted by this plugin. A human posts, or approves a provider integration that is verified to work.",
+    "Keyword comment gets a public library link, no DM."
+  ],
+  "funnel": [
+    "views",
+    "visits",
+    "activations",
+    "qualified_consultations"
+  ],
+  "items": [
+    {
+      "action": "post:instagram",
+      "platform": "instagram",
+      "fields": {
+        "caption": "המערכת הזאת מצאה לידים שאף אחד לא חזר אליהם (על נתוני דמו).\nפרק 1 של SYSTM BUILDS: SYSTM FOLLOWUP. מעלים קובץ לידים, מקבלים מי מחכה לתשובה וטיוטת הודעה. שום דבר לא נשלח בלי אישור.\nעדיין אין קישור להורדה. כשיהיה כלי שנבדק, הוא יעלה פה.\nאיזה כלי לעסק לבנות אחרי זה? תכתבו בתגובות.",
+        "story_teaser": "ליד כפול בקובץ. מה המערכת תעשה?",
+        "thumbnail_text": "ליד כפול",
+        "alt_text": "צילום מסך של טבלת לידים על רקע כהה, שורה כפולה מסומנת בתכלת"
+      },
+      "link": null,
+      "content_sha256": "ac515ca9bb7b37eec474ac5f8fa17453d3f6b2b0f06da6a7dae12c87663d4957",
+      "requires_approval": true,
+      "approved": false
+    },
+    {
+      "action": "post:tiktok",
+      "platform": "tiktok",
+      "fields": {
+        "caption": "ליד אחד הופיע פעמיים בקובץ. נתוני דמו, והמבחן אמיתי. עדיין אין קישור, ואני אומר את זה מראש. איזה כלי לבנות הבא?",
+        "alt_text": "צילום מסך של טבלת לידים על רקע כהה, שורה כפולה מסומנת בתכלת"
+      },
+      "link": null,
+      "content_sha256": "f66999be5e5201273a12777c26227600c8de0ba160b7dd962e6bb955983b2f1b",
+      "requires_approval": true,
+      "approved": false
+    },
+    {
+      "action": "post:shorts",
+      "platform": "shorts",
+      "fields": {
+        "title": "ליד כפול בקובץ: מה המערכת עושה? (דמו)",
+        "description": "פרק 1 של SYSTM BUILDS. נתוני דמו. עדיין אין קישור להורדה. איזה כלי לעסק לבנות הבא?"
+      },
+      "link": null,
+      "content_sha256": "ab023680c6d8cc77f737c8f096c2eba71290dcdbd0bbc2081bb9fd9fd61155d0",
+      "requires_approval": true,
+      "approved": false
+    },
+    {
+      "action": "post:linkedin",
+      "platform": "linkedin",
+      "fields": {
+        "caption": "אפשר לאבד לידים בפער שבין הקובץ למעקב. ב-SYSTM FOLLOWUP כל ליד מקבל בעלים ופעולה הבאה עם תאריך.\nההדגמה על נתוני דמו, וטיוטת ההודעה דורשת אישור אנושי. עדיין אין גרסה להורדה.\nאיזה כלי לעסק כדאי לבנות אחרי זה?",
+        "alt_text": "צילום מסך של טבלת לידים על רקע כהה, שורה כפולה מסומנת בתכלת"
+      },
+      "link": null,
+      "content_sha256": "d7dd5f678a31531eb84d0d564a7b31d0f4a61446defc386d2198e0f2b6c49b33",
+      "requires_approval": true,
+      "approved": false
+    }
+  ],
+  "ab_variants": [
+    {
+      "hook_id": "H01",
+      "text": "המערכת הזאת מצאה לידים שאף אחד לא חזר אליהם.",
+      "links": {
+        "instagram": null,
+        "tiktok": null,
+        "shorts": null,
+        "linkedin": null
+      }
+    },
+    {
+      "hook_id": "H03",
+      "text": "ליד אחד הופיע פעמיים בקובץ. תראו מה קרה.",
+      "links": {
+        "instagram": null,
+        "tiktok": null,
+        "shorts": null,
+        "linkedin": null
+      }
+    },
+    {
+      "hook_id": "H12",
+      "text": "מי חזר לליד של יום שלישי? אף אחד.",
+      "links": {
+        "instagram": null,
+        "tiktok": null,
+        "shorts": null,
+        "linkedin": null
+      }
+    }
+  ],
+  "provenance": {
+    "stage": "distribute",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "distribution.json",
+        "sha256": "ff4329e895e4474bab5a8d128ad97e82d784a19a87cd5909854c5d25da5e27e2"
+      },
+      {
+        "file": "script.json",
+        "sha256": "702c5e98ad6f30a82ce7210540ba528215e1f809cf57fa77dc9619a0b054742b"
+      },
+      {
+        "file": "input.json",
+        "sha256": "3f42c2e6d98e4f0b46cfdedcffe234d815e7f7ba43e9b9d6ef1a119a9195f210"
+      }
+    ]
+  }
+}

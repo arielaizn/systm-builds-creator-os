@@ -1,0 +1,52 @@
+{
+  "schema": "systm/idea@1",
+  "episode_id": "EP001",
+  "status": "ready",
+  "warnings": [],
+  "evidence_refs": [],
+  "one_product": "SYSTM FOLLOWUP",
+  "one_test": "ליד כפול בקובץ הלידים: האם הכלי מאחד אותו ועדיין מסמן מי מחכה לתשובה",
+  "business_pain": "לידים נכנסים לקובץ, ואין מי שאחראי על המעקב אחריהם",
+  "mechanic": "duplicate_lead",
+  "consent": {
+    "required": false,
+    "state": "not_needed",
+    "note": "מקור התצפית הוא שיחות עם בעלי עסקים, בלי ציטוט ובלי הצגת אדם ספציפי"
+  },
+  "novel_candidates": [
+    {
+      "axis": "mechanism",
+      "key": "duplicate_record",
+      "why": "ליד כפול הוא מקרה קצה שכל בעל עסק מזהה, וקל להראות אותו על המסך"
+    },
+    {
+      "axis": "edit_camera",
+      "key": "split_screen",
+      "why": "קובץ לפני ואחרי באותו פריים"
+    }
+  ],
+  "rejected_ideas": [
+    {
+      "idea": "שליחת וואטסאפ אוטומטית",
+      "reason": "דורשת אינטגרציה והרשאות שעוד לא קיימות, וחוששים מספאם"
+    },
+    {
+      "idea": "דאשבורד מכירות מלא",
+      "reason": "גדול מדי לפרק אחד, ואין בו בדיקה אחת שאפשר להראות"
+    }
+  ],
+  "risks": [
+    "הדגמה על נתונים סינתטיים עלולה להיראות כתוצאה אמיתית: חובה תווית על המסך",
+    "טיוטת הודעה שנשמעת כמו רובוט"
+  ],
+  "provenance": {
+    "stage": "idea",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "input.json",
+        "sha256": "3f42c2e6d98e4f0b46cfdedcffe234d815e7f7ba43e9b9d6ef1a119a9195f210"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "systm-builds-marketplace",
+  "interface": { "displayName": "SYSTM BUILDS" },
+  "plugins": [
+    {
+      "name": "systm-builds",
+      "source": { "source": "local", "path": "./plugins/systm-builds" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

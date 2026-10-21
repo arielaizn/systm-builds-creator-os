@@ -1,0 +1,139 @@
+{
+  "schema": "systm/verify@1",
+  "episode_id": "EP001",
+  "stage": "plan",
+  "verdict": "WARN",
+  "counts": {
+    "PASS": 13,
+    "WARN": 1,
+    "BLOCKED": 0,
+    "FAIL": 0
+  },
+  "checks": [
+    {
+      "id": "V01",
+      "title": "Episode input",
+      "acceptance": 1,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V02",
+      "title": "13-beat script",
+      "acceptance": 1,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V03",
+      "title": "Timing",
+      "acceptance": 4,
+      "status": "WARN",
+      "details": [
+        "63.311s, 1899 frames at 30fps, 165 words, 2.7 words/s (config_estimate)",
+        "duration is an estimate until the real VO is recorded: run `systm script EP001 --calibrate-seconds <vo seconds>`"
+      ]
+    },
+    {
+      "id": "V04",
+      "title": "MAATPA five axes + one NOVEL_ELEMENT",
+      "acceptance": 2,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V05",
+      "title": "12 scored truthful hooks",
+      "acceptance": 3,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V06",
+      "title": "Shotlist, EDL, VO, SRT/VTT, sound cues, motion props",
+      "acceptance": 4,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V07",
+      "title": "Hebrew RTL and mobile-safe typography",
+      "acceptance": 5,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V08",
+      "title": "Hebrew voice lint (no AI-sounding copy)",
+      "acceptance": 5,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V09",
+      "title": "No invented proof (claims need evidence)",
+      "acceptance": 6,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V10",
+      "title": "Mode, synthetic labelling, origin and consent",
+      "acceptance": 6,
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "V11",
+      "title": "Giveaway blocked when links/license are missing",
+      "acceptance": 7,
+      "status": "PASS",
+      "details": [
+        "gate BLOCKED (15 missing), CTA is honest (coming_soon)"
+      ]
+    },
+    {
+      "id": "V12",
+      "title": "No secrets or personal data",
+      "acceptance": 8,
+      "status": "PASS",
+      "details": [
+        "19 files scanned"
+      ]
+    },
+    {
+      "id": "V13",
+      "title": "No remote write without approval",
+      "acceptance": 9,
+      "status": "PASS",
+      "details": [
+        "no remote write recorded; the plugin has no code that posts or sends"
+      ]
+    },
+    {
+      "id": "V14",
+      "title": "Sound design rules",
+      "acceptance": 4,
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "provenance": {
+    "stage": "verify",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "input.json",
+        "sha256": "3f42c2e6d98e4f0b46cfdedcffe234d815e7f7ba43e9b9d6ef1a119a9195f210"
+      },
+      {
+        "file": "script.json",
+        "sha256": "702c5e98ad6f30a82ce7210540ba528215e1f809cf57fa77dc9619a0b054742b"
+      },
+      {
+        "file": "timing.json",
+        "sha256": "d90a5f8518995142596e3662ef5211fe3462692117d50ba88129695900125dd0"
+      }
+    ]
+  }
+}

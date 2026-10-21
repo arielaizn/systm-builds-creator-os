@@ -1,0 +1,62 @@
+{
+  "schema": "systm/config@1",
+  "brand": {
+    "signature": "אתם מבקשים. אני בונה. כולם מקבלים.",
+    "bg": "#0B0B0C",
+    "accent": "#7FD4FF",
+    "fg": "#FFFFFF"
+  },
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "target_min_s": 60,
+    "target_max_s": 75,
+    "hard_min_s": 45,
+    "hard_max_s": 90
+  },
+  "voice": {
+    "wps": 2.7,
+    "hook_max_words": 9,
+    "min_beat_s": 2
+  },
+  "captions": {
+    "max_chars_per_line": 28,
+    "max_lines": 2,
+    "min_cue_s": 0.8,
+    "rlm": true
+  },
+  "overlays": {
+    "max_words": 7
+  },
+  "safe_zone": {
+    "top": 220,
+    "bottom": 420,
+    "side": 60
+  },
+  "loudness": {
+    "target_lufs": -14,
+    "tolerance_lu": 2,
+    "peak_ceiling_db": -1
+  },
+  "novelty": {
+    "no_repeat_window": 3
+  },
+  "platform_limits": {
+    "instagram_caption": 2200,
+    "tiktok_caption": 2200,
+    "shorts_title": 100,
+    "shorts_description": 5000,
+    "linkedin_caption": 3000,
+    "thumbnail_words": 5
+  },
+  "utm": {
+    "source_by_platform": {
+      "instagram": "instagram",
+      "tiktok": "tiktok",
+      "shorts": "youtube",
+      "linkedin": "linkedin"
+    },
+    "medium": "organic_social"
+  }
+}

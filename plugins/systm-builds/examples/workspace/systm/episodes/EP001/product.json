@@ -1,0 +1,26 @@
+{
+  "schema": "systm/product@1",
+  "name": "SYSTM FOLLOWUP",
+  "status": "PROTOTYPE",
+  "version": "",
+  "capabilities": [
+    "ייבוא CSV של לידים",
+    "זיהוי לידים שעבר זמן בלי מענה",
+    "טיוטת הודעה שדורשת אישור אנושי"
+  ],
+  "hosted_url": null,
+  "repo_url": null,
+  "license": null,
+  "install": "",
+  "quotas": "",
+  "costs": {
+    "hosting": "",
+    "api": "",
+    "third_party": ""
+  },
+  "privacy": "",
+  "known_issues": [],
+  "support": "",
+  "screenshots": [],
+  "free_forever_claim": false
+}

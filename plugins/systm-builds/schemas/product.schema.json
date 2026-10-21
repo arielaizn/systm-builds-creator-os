@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "name",
+    "status",
+    "version",
+    "capabilities",
+    "license",
+    "install",
+    "quotas",
+    "costs",
+    "privacy",
+    "known_issues",
+    "support",
+    "screenshots"
+  ],
+  "properties": {
+    "schema": {
+      "const": "systm/product@1"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "BUILT",
+        "PROTOTYPE",
+        "DIAGNOSIS"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "hosted_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hosted_url_tested": {
+      "type": "object",
+      "properties": {
+        "tested_on": {
+          "type": "string"
+        },
+        "tested_by": {
+          "type": "string"
+        }
+      }
+    },
+    "repo_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "repo_url_tested": {
+      "type": "object",
+      "properties": {
+        "tested_on": {
+          "type": "string"
+        },
+        "tested_by": {
+          "type": "string"
+        }
+      }
+    },
+    "license": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "install": {
+      "type": "string"
+    },
+    "quotas": {
+      "type": "string"
+    },
+    "costs": {
+      "type": "object",
+      "required": [
+        "hosting",
+        "api",
+        "third_party"
+      ],
+      "properties": {
+        "hosting": {
+          "type": "string"
+        },
+        "api": {
+          "type": "string"
+        },
+        "third_party": {
+          "type": "string"
+        }
+      }
+    },
+    "privacy": {
+      "type": "string"
+    },
+    "known_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "support": {
+      "type": "string"
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "free_forever_claim": {
+      "type": "boolean"
+    },
+    "sustainability_note": {
+      "type": "string"
+    }
+  }
+}

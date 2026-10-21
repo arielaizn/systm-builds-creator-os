@@ -1,0 +1,159 @@
+{
+  "schema": "systm/package@1",
+  "episode_id": "EP001",
+  "product": "SYSTM FOLLOWUP",
+  "mode": "PROTOTYPE",
+  "format": "1080x1920@30",
+  "duration_s": 63.311,
+  "frames": 1899,
+  "verifier": {
+    "plan": "WARN",
+    "release": "FAIL"
+  },
+  "release_gate": "BLOCKED",
+  "ready_to_publish": false,
+  "blocked_by": [
+    "release-stage verifier is FAIL",
+    "V09 No invented proof (claims need evidence): C1: evidence E1 is not verified yet"
+  ],
+  "files": [
+    {
+      "file": "build/captions.he.srt",
+      "bytes": 2536,
+      "sha256": "04bc812f567ff0d2c65b8f8e3d7f6fdc93aec30e9ee8789dad77e6080752a144"
+    },
+    {
+      "file": "build/captions.he.vtt",
+      "bytes": 2544,
+      "sha256": "1a2806d9e0efc9b51ded7e87b7c3b422202822a97372a55af5b570d49d5bae7e"
+    },
+    {
+      "file": "build/edl.csv",
+      "bytes": 2433,
+      "sha256": "a7292daf1078df2ba122639914dbefdcd0228466367e83380e676e9af5f7afa4"
+    },
+    {
+      "file": "build/motion-props.json",
+      "bytes": 4431,
+      "sha256": "83a6a9e161e4e9ba1635665f207e5a2ad79d9ec9ac171b90816a6e3fedf4a9d3"
+    },
+    {
+      "file": "build/shotlist.csv",
+      "bytes": 3034,
+      "sha256": "566b695d4ca01372b739c8a5f5acac2a11d0970b42b11ff900020ae08b292ec1"
+    },
+    {
+      "file": "build/sound-cues.csv",
+      "bytes": 1471,
+      "sha256": "35e06727fab8f6bf58deb7f6a76840dc7fc4c5c86063057300efba094fba2858"
+    },
+    {
+      "file": "build/timing.json",
+      "bytes": 3859,
+      "sha256": "375ed56c76c8de0cd589b50c59fd44921b573bc5b846ebb0acdada23ea18778a"
+    },
+    {
+      "file": "build/vo.txt",
+      "bytes": 1554,
+      "sha256": "bc63ca0d0db00b0a651465e0635cbd7eb782eb828e53d83ca96e8283a354f4a4"
+    },
+    {
+      "file": "distribute/plan.json",
+      "bytes": 4769,
+      "sha256": "a566c96b3f904893ca0c5a9e0b85532f9ba71800c437acd3eddccfc946b58b52"
+    },
+    {
+      "file": "distribute/plan.md",
+      "bytes": 2908,
+      "sha256": "ee0de2fff90b166041758b23959454e053b6092926e67b26295b3f0a7709bb3b"
+    },
+    {
+      "file": "distribute/utm.csv",
+      "bytes": 180,
+      "sha256": "032c8ef836c98307bc3aa3a7812bddf02236cf0b0c9cd6f9fb904b1bd6292c82"
+    },
+    {
+      "file": "distribution.json",
+      "bytes": 2501,
+      "sha256": "e1ff4dc9559cc315a0b2d53bc8a4c69510b8c458e503c034ebeb1eb75633742c"
+    },
+    {
+      "file": "hooks.json",
+      "bytes": 5307,
+      "sha256": "c1e5c0f4bf13b7ec12652f184b08e47f214fde5b95a79baae3abb429b8814f13"
+    },
+    {
+      "file": "hooks.md",
+      "bytes": 1953,
+      "sha256": "d60f4c276442de26004cb1f6cfe174e53cefc0de9e9fc72e3f85ee8b556e66e8"
+    },
+    {
+      "file": "idea.json",
+      "bytes": 1841,
+      "sha256": "da3dba237c3ebe19efdc4ca49da45f9c43bfa23d1d16f38bafd8dde215f04235"
+    },
+    {
+      "file": "input.json",
+      "bytes": 1824,
+      "sha256": "0e2b7ea24360f2b8da319a3428e24e915368c9ee6f01921cbbaaaa06d20f4fd9"
+    },
+    {
+      "file": "launch/gate.json",
+      "bytes": 3301,
+      "sha256": "4ee0c381a1d143c861718e4585eb4a1e02fd618d8a614fdc8921f4f5f2216542"
+    },
+    {
+      "file": "maatpa.json",
+      "bytes": 4190,
+      "sha256": "f69e2ec886b8220e8acb13ecaa12447d5e35f53ac73b33857160c29ed037e782"
+    },
+    {
+      "file": "maatpa.md",
+      "bytes": 3237,
+      "sha256": "cde3af3591324df2587132d16af5eacf63001c0ce6c8ef33a17e1f522e556ba6"
+    },
+    {
+      "file": "product.json",
+      "bytes": 567,
+      "sha256": "639bfc4dd5f416e66f7ed13af654a638ceba066f98b59ab3b407d5af185c8072"
+    },
+    {
+      "file": "script.json",
+      "bytes": 10096,
+      "sha256": "10545a82472fabf18a0c4640cfc8974c601bc69c6b2057926b8e9809522c1466"
+    },
+    {
+      "file": "script.md",
+      "bytes": 7573,
+      "sha256": "370086e096bc3fd674589bffbb421f29244da9c74811e95089b955b79ff7dd1d"
+    },
+    {
+      "file": "verify/report.json",
+      "bytes": 3177,
+      "sha256": "48bb7f02fb330584479c953a19d6dfa119f2612b501a8e35e550f77d54bbca78"
+    },
+    {
+      "file": "verify/report.md",
+      "bytes": 1424,
+      "sha256": "cd277ca571335b14ed02ed2b8d5c31c579b8a1f3e551ecb362abf5c9648a83f3"
+    }
+  ],
+  "provenance": {
+    "stage": "package",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "script.json",
+        "sha256": "702c5e98ad6f30a82ce7210540ba528215e1f809cf57fa77dc9619a0b054742b"
+      },
+      {
+        "file": "timing.json",
+        "sha256": "d90a5f8518995142596e3662ef5211fe3462692117d50ba88129695900125dd0"
+      },
+      {
+        "file": "report.json",
+        "sha256": "063917f532c87c9a995b8a09f248cb17e5a2badd4703ffe64ae815ef6bc25ccb"
+      }
+    ]
+  }
+}

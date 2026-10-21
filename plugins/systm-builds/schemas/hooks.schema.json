@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "episode_id",
+    "status",
+    "hooks",
+    "selected"
+  ],
+  "properties": {
+    "schema": {
+      "const": "systm/hooks@1"
+    },
+    "episode_id": {
+      "type": "string",
+      "pattern": "^EP\\d{3,4}$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_revision",
+        "blocked"
+      ]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hooks": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "type",
+          "scores"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^H\\d{2}$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "result_first",
+              "pain_first",
+              "constraint_first",
+              "contradiction",
+              "surprising_test",
+              "owner_pain"
+            ]
+          },
+          "scores": {
+            "type": "object",
+            "required": [
+              "audience_fit",
+              "curiosity",
+              "specificity",
+              "proof",
+              "visual_strength"
+            ],
+            "properties": {
+              "audience_fit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "curiosity": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "specificity": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "proof": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "visual_strength": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              }
+            }
+          },
+          "provable_with": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^E\\d+$"
+            }
+          },
+          "total": {
+            "type": "number"
+          },
+          "rank": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "selected": {
+      "type": "string",
+      "pattern": "^H\\d{2}$"
+    }
+  }
+}

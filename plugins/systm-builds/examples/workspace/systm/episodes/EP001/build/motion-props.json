@@ -1,0 +1,210 @@
+{
+  "schema": "systm/motion-props@1",
+  "episode_id": "EP001",
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationInFrames": 1899
+  },
+  "brand": {
+    "signature": "אתם מבקשים. אני בונה. כולם מקבלים.",
+    "bg": "#0B0B0C",
+    "accent": "#7FD4FF",
+    "fg": "#FFFFFF"
+  },
+  "safe_zone": {
+    "top": 220,
+    "bottom": 420,
+    "side": 60
+  },
+  "direction": "rtl",
+  "segments": [
+    {
+      "composition": "ColdOpen",
+      "from": 0,
+      "durationInFrames": 130,
+      "beats": [
+        1
+      ],
+      "lines": [
+        {
+          "beat": 1,
+          "text": "לידים בלי מענה · נתוני דמו",
+          "mode": "SCREEN",
+          "from": 0,
+          "durationInFrames": 130
+        }
+      ]
+    },
+    {
+      "composition": "Dilemma",
+      "from": 130,
+      "durationInFrames": 367,
+      "beats": [
+        2,
+        3,
+        4
+      ],
+      "lines": [
+        {
+          "beat": 2,
+          "text": "מי אחראי על המעקב?",
+          "mode": "A-CAM",
+          "from": 0,
+          "durationInFrames": 100
+        },
+        {
+          "beat": 3,
+          "text": "לרדוף ידנית או לאבד לידים",
+          "mode": "MOTION",
+          "from": 100,
+          "durationInFrames": 156
+        },
+        {
+          "beat": 4,
+          "text": "מעקב בלי עוד עובד",
+          "mode": "A-CAM",
+          "from": 256,
+          "durationInFrames": 111
+        }
+      ]
+    },
+    {
+      "composition": "Insight",
+      "from": 497,
+      "durationInFrames": 311,
+      "beats": [
+        5,
+        6
+      ],
+      "lines": [
+        {
+          "beat": 5,
+          "text": "לכל ליד: בעלים ופעולה הבאה",
+          "mode": "MOTION",
+          "from": 0,
+          "durationInFrames": 155
+        },
+        {
+          "beat": 6,
+          "text": "אקסל ותזכורות ידניות לא מספיקים",
+          "mode": "MOTION",
+          "from": 155,
+          "durationInFrames": 156
+        }
+      ]
+    },
+    {
+      "composition": "Reveal",
+      "from": 808,
+      "durationInFrames": 300,
+      "beats": [
+        7,
+        8
+      ],
+      "lines": [
+        {
+          "beat": 7,
+          "text": "מקור: תצפית",
+          "mode": "A-CAM",
+          "from": 0,
+          "durationInFrames": 166
+        },
+        {
+          "beat": 8,
+          "text": "SYSTM FOLLOWUP",
+          "mode": "MOTION",
+          "from": 166,
+          "durationInFrames": 134
+        }
+      ]
+    },
+    {
+      "composition": "StressTest",
+      "from": 1108,
+      "durationInFrames": 113,
+      "beats": [
+        9
+      ],
+      "lines": [
+        {
+          "beat": 9,
+          "text": "ליד כפול · נתוני דמו",
+          "mode": "SCREEN",
+          "from": 0,
+          "durationInFrames": 113
+        }
+      ]
+    },
+    {
+      "composition": "Proof",
+      "from": 1221,
+      "durationInFrames": 312,
+      "beats": [
+        10,
+        11
+      ],
+      "lines": [
+        {
+          "beat": 10,
+          "text": "ייבוא · איחוד · סימון · נתוני דמו",
+          "mode": "SCREEN",
+          "from": 0,
+          "durationInFrames": 144
+        },
+        {
+          "beat": 11,
+          "text": "רשומה אחת · טיוטה לאישור · נתוני דמו",
+          "mode": "SCREEN",
+          "from": 144,
+          "durationInFrames": 168
+        }
+      ]
+    },
+    {
+      "composition": "Caveat",
+      "from": 1533,
+      "durationInFrames": 166,
+      "beats": [
+        12
+      ],
+      "lines": [
+        {
+          "beat": 12,
+          "text": "בלי וואטסאפ אוטומטי בגרסה 1",
+          "mode": "A-CAM",
+          "from": 0,
+          "durationInFrames": 166
+        }
+      ]
+    },
+    {
+      "composition": "Giveaway",
+      "from": 1699,
+      "durationInFrames": 200,
+      "beats": [
+        13
+      ],
+      "lines": [
+        {
+          "beat": 13,
+          "text": "איזה כלי לבנות הבא?",
+          "mode": "A-CAM",
+          "from": 0,
+          "durationInFrames": 200
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "stage": "build",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "script.json",
+        "sha256": "702c5e98ad6f30a82ce7210540ba528215e1f809cf57fa77dc9619a0b054742b"
+      }
+    ]
+  }
+}

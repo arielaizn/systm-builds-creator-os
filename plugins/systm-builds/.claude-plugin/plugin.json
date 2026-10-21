@@ -1,0 +1,13 @@
+{
+  "name": "systm-builds",
+  "description": "SYSTM BUILDS Creator OS: מכונת תוכן לפורמט של 60 עד 75 שניות שבו יוצר בונה כלי עסקי לפי בקשות הקהל, מדגים אותו באמת ושואל מה לבנות אחר כך. 17 סקילים, מנוע CLI דטרמיניסטי, מעטפ״ה, 13 ביטים, מאמת עם זכות וטו, שער שחרור למתנה והפצה בלי פרסום אוטומטי. עברית RTL מהיסוד.",
+  "version": "1.0.0",
+  "author": { "name": "Ariel Aizenshtat · SYSTM" },
+  "homepage": "https://github.com/arielaizn/systm-builds-creator-os",
+  "repository": "https://github.com/arielaizn/systm-builds-creator-os",
+  "license": "MIT",
+  "keywords": ["systm", "content-machine", "short-form", "hebrew", "rtl", "maatpa", "script", "shotlist", "edl", "captions", "analytics", "giveaway", "מעטפה", "תוכן", "עברית"],
+  "skills": "./skills",
+  "commands": "./commands",
+  "agents": ["./agents/systm-hook-judge.md", "./agents/systm-release-reviewer.md", "./agents/systm-episode-runner.md"]
+}

@@ -1,0 +1,19 @@
+time_tc,time_s,beat,type,asset,license,duck_db,note
+00:00:00:00,0,1,MUSIC,,,-12,"מיטת מוזיקה מונמכת תחת הקריינות, טראק מורשה ייבחר לפני העריכה"
+00:00:00:00,0,1,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:04:10,4.333,2,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:07:20,7.666,3,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:12:26,12.851,4,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:16:17,16.555,5,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:21:22,21.74,6,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:26:28,26.925,7,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:32:14,32.481,8,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:32:26,32.881,8,REVEAL_HIT,,,,פגיעה אחת בחשיפת שם הכלי
+00:00:36:28,36.925,9,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:39:28,39.925,9,SILENCE,,,,שקט מלא לפני תוצאת הליד הכפול
+00:00:40:21,40.688,10,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:41:21,41.688,10,UI,,,,צלילי ממשק עדינים בכל פעולה על המסך
+00:00:45:15,45.503,11,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:51:03,51.088,12,VO,vo_take,own,,"voice first, music ducks under it"
+00:00:56:19,56.644,13,VO,vo_take,own,,"voice first, music ducks under it"
+00:01:02:04,62.144,13,SONIC_LOGO,,,,לוגו סאונד קצר בסוף

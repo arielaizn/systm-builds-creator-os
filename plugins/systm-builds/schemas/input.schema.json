@@ -1,0 +1,162 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "episode_id",
+    "product",
+    "status",
+    "audience",
+    "pain",
+    "origin",
+    "evidence",
+    "hosted_url",
+    "repo_url",
+    "keyword",
+    "novel_element"
+  ],
+  "properties": {
+    "schema": {
+      "const": "systm/input@1"
+    },
+    "episode_id": {
+      "type": "string",
+      "pattern": "^EP\\d{3,4}$"
+    },
+    "status": {
+      "enum": [
+        "BUILT",
+        "PROTOTYPE",
+        "DIAGNOSIS"
+      ]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "product": {
+      "type": "string",
+      "minLength": 1
+    },
+    "audience": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pain": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin": {
+      "enum": [
+        "consented_request",
+        "observed_need"
+      ]
+    },
+    "request_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "description",
+          "state",
+          "synthetic"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^E\\d+$"
+          },
+          "kind": {
+            "enum": [
+              "screen_recording",
+              "test_output",
+              "screenshot",
+              "url",
+              "metric",
+              "user_message",
+              "document"
+            ]
+          },
+          "ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "enum": [
+              "planned",
+              "captured",
+              "verified"
+            ]
+          },
+          "synthetic": {
+            "type": "boolean"
+          },
+          "verified_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "hosted_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "repo_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "keyword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "novel_element": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

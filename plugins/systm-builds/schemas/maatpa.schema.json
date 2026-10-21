@@ -1,0 +1,385 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "episode_id",
+    "status",
+    "mechanic",
+    "axes",
+    "novel_element",
+    "viewer_questions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "systm/maatpa@1"
+    },
+    "episode_id": {
+      "type": "string",
+      "pattern": "^EP\\d{3,4}$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_revision",
+        "blocked"
+      ]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mechanic": {
+      "enum": [
+        "timer",
+        "audience_request",
+        "blind_test",
+        "failed_attempt",
+        "manual_vs_ai",
+        "duplicate_lead"
+      ]
+    },
+    "axes": {
+      "type": "object",
+      "required": [
+        "mechanism",
+        "edit_camera",
+        "text",
+        "sound",
+        "hook"
+      ],
+      "properties": {
+        "mechanism": {
+          "type": "object",
+          "required": [
+            "choice",
+            "why",
+            "timestamp",
+            "asset",
+            "implementation",
+            "risk",
+            "metric",
+            "repair",
+            "score"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "why": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": "string",
+              "minLength": 1
+            },
+            "asset": {
+              "type": "string",
+              "minLength": 1
+            },
+            "implementation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk": {
+              "type": "string",
+              "minLength": 1
+            },
+            "metric": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repair": {
+              "type": "string",
+              "minLength": 1
+            },
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        },
+        "edit_camera": {
+          "type": "object",
+          "required": [
+            "choice",
+            "why",
+            "timestamp",
+            "asset",
+            "implementation",
+            "risk",
+            "metric",
+            "repair",
+            "score"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "why": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": "string",
+              "minLength": 1
+            },
+            "asset": {
+              "type": "string",
+              "minLength": 1
+            },
+            "implementation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk": {
+              "type": "string",
+              "minLength": 1
+            },
+            "metric": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repair": {
+              "type": "string",
+              "minLength": 1
+            },
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        },
+        "text": {
+          "type": "object",
+          "required": [
+            "choice",
+            "why",
+            "timestamp",
+            "asset",
+            "implementation",
+            "risk",
+            "metric",
+            "repair",
+            "score"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "why": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": "string",
+              "minLength": 1
+            },
+            "asset": {
+              "type": "string",
+              "minLength": 1
+            },
+            "implementation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk": {
+              "type": "string",
+              "minLength": 1
+            },
+            "metric": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repair": {
+              "type": "string",
+              "minLength": 1
+            },
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        },
+        "sound": {
+          "type": "object",
+          "required": [
+            "choice",
+            "why",
+            "timestamp",
+            "asset",
+            "implementation",
+            "risk",
+            "metric",
+            "repair",
+            "score"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "why": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": "string",
+              "minLength": 1
+            },
+            "asset": {
+              "type": "string",
+              "minLength": 1
+            },
+            "implementation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk": {
+              "type": "string",
+              "minLength": 1
+            },
+            "metric": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repair": {
+              "type": "string",
+              "minLength": 1
+            },
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        },
+        "hook": {
+          "type": "object",
+          "required": [
+            "choice",
+            "why",
+            "timestamp",
+            "asset",
+            "implementation",
+            "risk",
+            "metric",
+            "repair",
+            "score"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "why": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": "string",
+              "minLength": 1
+            },
+            "asset": {
+              "type": "string",
+              "minLength": 1
+            },
+            "implementation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk": {
+              "type": "string",
+              "minLength": 1
+            },
+            "metric": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repair": {
+              "type": "string",
+              "minLength": 1
+            },
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        }
+      }
+    },
+    "novel_element": {
+      "type": "object",
+      "required": [
+        "axis",
+        "key",
+        "description"
+      ],
+      "properties": {
+        "axis": {
+          "enum": [
+            "mechanism",
+            "edit_camera",
+            "text",
+            "sound",
+            "hook"
+          ]
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "viewer_questions": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "at_s",
+          "question"
+        ],
+        "properties": {
+          "at_s": {
+            "enum": [
+              3,
+              15,
+              35,
+              55
+            ]
+          },
+          "question": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

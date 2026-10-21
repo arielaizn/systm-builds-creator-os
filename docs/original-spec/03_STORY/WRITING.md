@@ -1,0 +1,2 @@
+# Script engine
+Input: episode_id, product, audience, pain, source, status BUILT/PROTOTYPE/DIAGNOSIS, features, evidence, constraints, hosted_url, repo_url, keyword. Output: 13-beat timed table, continuous Hebrew VO, 12 hooks ranked by provability/relevance/curiosity, overlays, evidence ledger, next-build CTA. Do not say "I built" or "saved hours" without proof. If hosted/repo missing, replace giveaway claim with honest coming-soon CTA. Aim 60–75s based on actual VO recording speed.

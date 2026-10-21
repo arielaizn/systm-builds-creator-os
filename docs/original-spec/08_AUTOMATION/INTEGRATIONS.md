@@ -1,0 +1,2 @@
+# Integrations and approvals
+Optional: GitHub release read, analytics CSV, form submissions, social provider APIs, comment-keyword delivery. Discover actual permissions and APIs; never invent endpoints or claim DM capability. Dry-run and manual approval default. Protect secrets, consent, opt-outs, idempotency, retry limits and platform rate limits. Never scrape personal data or auto-post without explicit authorization. Product release gate requires working hosted/repo URLs and accurate license/cost disclosures.

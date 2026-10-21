@@ -1,0 +1,61 @@
+{
+  "schema": "systm/input@1",
+  "episode_id": "EP001",
+  "product": "SYSTM FOLLOWUP",
+  "status": "PROTOTYPE",
+  "audience": "בעלי עסקים",
+  "pain": "לידים שנופלים בין הכיסאות",
+  "origin": "observed_need",
+  "request_ref": null,
+  "features": [
+    "ייבוא CSV של לידים",
+    "זיהוי לידים שעבר זמן בלי מענה",
+    "טיוטת הודעה שדורשת אישור אנושי"
+  ],
+  "constraints": [
+    "אין וואטסאפ אוטומטי בגרסה 1",
+    "כל הנתונים בהדגמה סינתטיים ומסומנים כך על המסך"
+  ],
+  "evidence": [
+    {
+      "id": "E1",
+      "kind": "screen_recording",
+      "ref": null,
+      "description": "הרצה על קובץ דמו: המערכת מסמנת לידים שעבר זמן בלי מענה",
+      "state": "planned",
+      "synthetic": true,
+      "verified_by": null
+    },
+    {
+      "id": "E2",
+      "kind": "screen_recording",
+      "ref": null,
+      "description": "מבחן ליד כפול על קובץ הדמו",
+      "state": "planned",
+      "synthetic": true,
+      "verified_by": null
+    },
+    {
+      "id": "E3",
+      "kind": "test_output",
+      "ref": null,
+      "description": "פלט הבדיקה: רשומה מאוחדת וטיוטת ההודעה שנוצרה",
+      "state": "planned",
+      "synthetic": true,
+      "verified_by": null
+    },
+    {
+      "id": "E4",
+      "kind": "document",
+      "ref": null,
+      "description": "הערות מפגשים עם בעלי עסקים שבהם עלה הכאב (להשלים לפני צילום)",
+      "state": "planned",
+      "synthetic": false,
+      "verified_by": null
+    }
+  ],
+  "hosted_url": null,
+  "repo_url": null,
+  "keyword": "לידים",
+  "novel_element": "duplicate lead stress test"
+}

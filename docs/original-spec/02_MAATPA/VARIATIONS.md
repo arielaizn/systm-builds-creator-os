@@ -1,0 +1,2 @@
+# Novelty ideas
+Mechanism: timer, user-submitted bug, blind test, duplicate record, reverse reveal, failed attempt, before/after. Edit: split screen, macro cursor, freeze-frame annotation, one-take screen capture, kinetic text. Text: confession, contradiction, question, one-word interruption. Sound: silence at failure, UI rhythm, reveal impact. Hook: result first, pain first, constraint first. Pick ONE new element; keep other series conventions.

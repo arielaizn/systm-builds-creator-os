@@ -1,0 +1,163 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "episode_id",
+    "status",
+    "platforms",
+    "thumbnail_text",
+    "alt_text",
+    "ab_hooks",
+    "link_policy"
+  ],
+  "properties": {
+    "schema": {
+      "const": "systm/distribution@1"
+    },
+    "episode_id": {
+      "type": "string",
+      "pattern": "^EP\\d{3,4}$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_revision",
+        "blocked"
+      ]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "platforms": {
+      "type": "object",
+      "required": [
+        "instagram",
+        "tiktok",
+        "shorts",
+        "linkedin"
+      ],
+      "properties": {
+        "instagram": {
+          "type": "object",
+          "required": [
+            "caption",
+            "story_teaser"
+          ],
+          "properties": {
+            "caption": {
+              "type": "string",
+              "minLength": 1
+            },
+            "story_teaser": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "tiktok": {
+          "type": "object",
+          "required": [
+            "caption"
+          ],
+          "properties": {
+            "caption": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "shorts": {
+          "type": "object",
+          "required": [
+            "title",
+            "description"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "linkedin": {
+          "type": "object",
+          "required": [
+            "caption"
+          ],
+          "properties": {
+            "caption": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "thumbnail_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "alt_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ab_hooks": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^H\\d{2}$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "link_policy": {
+      "enum": [
+        "library_link",
+        "keyword_dm"
+      ]
+    },
+    "dm": {
+      "type": "object",
+      "properties": {
+        "integration_verified": {
+          "type": "boolean"
+        },
+        "opt_out_text": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

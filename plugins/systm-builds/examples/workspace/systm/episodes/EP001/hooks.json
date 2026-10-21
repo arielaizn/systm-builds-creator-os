@@ -1,0 +1,231 @@
+{
+  "schema": "systm/hooks@1",
+  "episode_id": "EP001",
+  "status": "ready",
+  "warnings": [],
+  "evidence_refs": [],
+  "selected": "H01",
+  "hooks": [
+    {
+      "id": "H01",
+      "text": "המערכת הזאת מצאה לידים שאף אחד לא חזר אליהם.",
+      "type": "result_first",
+      "scores": {
+        "audience_fit": 5,
+        "curiosity": 4,
+        "specificity": 4,
+        "proof": 4,
+        "visual_strength": 5
+      },
+      "provable_with": [
+        "E1"
+      ],
+      "note": "מהספק של הפרק. מוצג על המסך בשנייה הראשונה",
+      "total": 4.35,
+      "rank": 1
+    },
+    {
+      "id": "H02",
+      "text": "כמה לידים נעלמו אצלך החודש בלי שמישהו שם לב?",
+      "type": "pain_first",
+      "scores": {
+        "audience_fit": 5,
+        "curiosity": 4,
+        "specificity": 3,
+        "proof": 2,
+        "visual_strength": 2
+      },
+      "note": "",
+      "total": 3.23,
+      "rank": 10
+    },
+    {
+      "id": "H03",
+      "text": "ליד אחד הופיע פעמיים בקובץ. תראו מה קרה.",
+      "type": "surprising_test",
+      "scores": {
+        "audience_fit": 4,
+        "curiosity": 5,
+        "specificity": 4,
+        "proof": 4,
+        "visual_strength": 4
+      },
+      "provable_with": [
+        "E2"
+      ],
+      "note": "",
+      "total": 4.21,
+      "rank": 2
+    },
+    {
+      "id": "H04",
+      "text": "ליד שמחכה יומיים לתשובה כבר אצל מישהו אחר.",
+      "type": "owner_pain",
+      "scores": {
+        "audience_fit": 4,
+        "curiosity": 3,
+        "specificity": 2,
+        "proof": 1,
+        "visual_strength": 2
+      },
+      "note": "",
+      "total": 2.37,
+      "rank": 12
+    },
+    {
+      "id": "H05",
+      "text": "אקסל לא ידע שאותו ליד נכנס פעמיים.",
+      "type": "surprising_test",
+      "scores": {
+        "audience_fit": 3,
+        "curiosity": 4,
+        "specificity": 4,
+        "proof": 3,
+        "visual_strength": 4
+      },
+      "provable_with": [
+        "E2"
+      ],
+      "note": "",
+      "total": 3.53,
+      "rank": 7
+    },
+    {
+      "id": "H06",
+      "text": "בקובץ הדמו אף ליד לא רשום על אף אחד.",
+      "type": "constraint_first",
+      "scores": {
+        "audience_fit": 4,
+        "curiosity": 4,
+        "specificity": 5,
+        "proof": 4,
+        "visual_strength": 4
+      },
+      "provable_with": [
+        "E1"
+      ],
+      "note": "",
+      "total": 4.18,
+      "rank": 3
+    },
+    {
+      "id": "H07",
+      "text": "בלי עוד עובד, כל ליד מקבל בעלים ותאריך.",
+      "type": "constraint_first",
+      "scores": {
+        "audience_fit": 5,
+        "curiosity": 3,
+        "specificity": 3,
+        "proof": 3,
+        "visual_strength": 3
+      },
+      "provable_with": [
+        "E1"
+      ],
+      "note": "",
+      "total": 3.42,
+      "rank": 9
+    },
+    {
+      "id": "H08",
+      "text": "טיימר רץ. נראה כמה לידים נתקעים.",
+      "type": "surprising_test",
+      "scores": {
+        "audience_fit": 3,
+        "curiosity": 4,
+        "specificity": 3,
+        "proof": 3,
+        "visual_strength": 5
+      },
+      "provable_with": [
+        "E1"
+      ],
+      "note": "",
+      "total": 3.49,
+      "rank": 8
+    },
+    {
+      "id": "H09",
+      "text": "אני לא שולח הודעה בלי אישור. גם המערכת לא.",
+      "type": "constraint_first",
+      "scores": {
+        "audience_fit": 4,
+        "curiosity": 3,
+        "specificity": 4,
+        "proof": 4,
+        "visual_strength": 3
+      },
+      "provable_with": [
+        "E3"
+      ],
+      "note": "",
+      "total": 3.65,
+      "rank": 5
+    },
+    {
+      "id": "H10",
+      "text": "מעקב שנופל מתחיל בשאלה אחת: של מי הליד הזה?",
+      "type": "owner_pain",
+      "scores": {
+        "audience_fit": 5,
+        "curiosity": 4,
+        "specificity": 3,
+        "proof": 2,
+        "visual_strength": 2
+      },
+      "note": "",
+      "total": 3.23,
+      "rank": 11
+    },
+    {
+      "id": "H11",
+      "text": "הדגמה על נתוני דמו, והיא לא מושלמת.",
+      "type": "contradiction",
+      "scores": {
+        "audience_fit": 3,
+        "curiosity": 3,
+        "specificity": 4,
+        "proof": 5,
+        "visual_strength": 3
+      },
+      "provable_with": [
+        "E1"
+      ],
+      "note": "",
+      "total": 3.7,
+      "rank": 4
+    },
+    {
+      "id": "H12",
+      "text": "מי חזר לליד של יום שלישי? אף אחד.",
+      "type": "pain_first",
+      "scores": {
+        "audience_fit": 4,
+        "curiosity": 4,
+        "specificity": 4,
+        "proof": 3,
+        "visual_strength": 3
+      },
+      "provable_with": [
+        "E1"
+      ],
+      "note": "",
+      "total": 3.6,
+      "rank": 6
+    }
+  ],
+  "provenance": {
+    "stage": "hooks",
+    "tool": "systm@1.0.0",
+    "inputs": [
+      {
+        "file": "input.json",
+        "sha256": "3f42c2e6d98e4f0b46cfdedcffe234d815e7f7ba43e9b9d6ef1a119a9195f210"
+      },
+      {
+        "file": "idea.json",
+        "sha256": "772dc149fdfd0224f07c9066667dcb2c0471065195373bbc39dcb77cded12603"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+**/systm/out/
+**/.env
+*.mp4
+*.mov
+*.wav

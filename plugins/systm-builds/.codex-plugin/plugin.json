@@ -1,0 +1,24 @@
+{
+  "name": "systm-builds",
+  "version": "1.0.0",
+  "description": "SYSTM BUILDS Creator OS: a content machine for the 60-75 second vertical Hebrew format where a creator builds a business tool from audience requests, demos it for real and asks what to build next. 17 skills, a deterministic CLI engine, MAATPA, 13 beats, an evidence verifier with veto, a giveaway release gate and dry-run distribution.",
+  "author": { "name": "Ariel Aizenshtat · SYSTM", "url": "https://github.com/arielaizn" },
+  "homepage": "https://github.com/arielaizn/systm-builds-creator-os",
+  "repository": "https://github.com/arielaizn/systm-builds-creator-os",
+  "license": "MIT",
+  "keywords": ["systm", "content-machine", "short-form", "hebrew", "rtl", "maatpa", "video", "analytics"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SYSTM BUILDS Creator OS",
+    "shortDescription": "Hebrew short-form content machine",
+    "longDescription": "Idea, 12 scored hooks, MAATPA, 13-beat script, shotlist, EDL, RTL captions, sound cues, evidence verifier, giveaway release gate, dry-run distribution and funnel analytics for the SYSTM BUILDS format. Nothing is posted or sent without a human.",
+    "developerName": "Ariel Aizenshtat",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/arielaizn/systm-builds-creator-os",
+    "defaultPrompt": ["Use $systm-creator-os to start a new SYSTM BUILDS episode from my backlog."],
+    "brandColor": "#7FD4FF",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  }
+}
